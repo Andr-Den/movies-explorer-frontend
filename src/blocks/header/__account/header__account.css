@@ -1,0 +1,12 @@
+.header__account {
+  padding: 0;
+  border: none;
+  border-radius: 20px;
+  background-color: #313131;
+  width: 100px;
+  height: 32px;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 500;
+}
