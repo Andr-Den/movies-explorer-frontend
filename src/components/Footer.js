@@ -1,4 +1,18 @@
 import React from 'react'
+const links = [
+  {
+    url: 'https://practicum.yandex.ru/',
+    text: 'Яндекс.Практикум'
+  },
+  {
+    url: 'https://github.com/',
+    text: 'GitHub'
+  },
+  {
+    url: 'https://facebook.com/',
+    text: 'Facebook'
+  }
+]
 
 function Footer() {
   return (
@@ -7,9 +21,9 @@ function Footer() {
       <div className="footer__nav">
         <p>&copy; 2022</p>
         <ul className="footer__links">
-          <li>Яндекс.Практикум</li>
-          <li>GitHub</li>
-          <li>Facebook</li>
+          {links.map(({url, text}) => (
+            <li><a href={url} className="footer__link" target="_blank">{text}</a></li>
+          ))}
         </ul>
     </div>
   </footer>

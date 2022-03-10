@@ -10,3 +10,8 @@
 .portfolio__link:last-child {
   border-bottom: none;
 }
+
+.portfolio__link:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}

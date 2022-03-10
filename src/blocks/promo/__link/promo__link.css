@@ -10,3 +10,7 @@
   line-height: 16px;
   font-weight: 500;
 }
+
+.promo__link:hover {
+  cursor: pointer;
+}

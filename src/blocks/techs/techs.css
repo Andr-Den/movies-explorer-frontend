@@ -1,8 +1,7 @@
 .techs {
-  padding-top: 100px;
-  padding-bottom: 100px;
+padding: 100px 70px 100px 70px;
   margin: 0 auto 0;
-  width: 89%;
+  /* width: 89%; */
   max-width: 1140px;
   background: #272727;
 }
