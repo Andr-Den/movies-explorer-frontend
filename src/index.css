@@ -39,6 +39,11 @@
 @import url(./blocks/about-me/__image/about-me__image.css);
 @import url(./blocks/about-me/__links/about-me__links.css);
 
+@import url(./blocks/portfolio/portfolio.css);
+@import url(./blocks/portfolio/__title/portfolio__title.css);
+@import url(./blocks/portfolio/__links/portfolio__links.css);
+@import url(./blocks/portfolio/__link/portfolio__link.css);
+
 @import url(./blocks/footer/footer.css);
 @import url(./blocks/footer/__text/footer__text.css);
 @import url(./blocks/footer/__links/footer__links.css);
