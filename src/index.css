@@ -25,6 +25,12 @@
 @import url(./blocks/about-project/__digitals/_backend/about-project__digitals_backend.css);
 @import url(./blocks/about-project/__digitals/_frontend/about-project__digitals_frontend.css);
 
+@import url(./blocks/techs/techs.css);
+@import url(./blocks/techs/__title/techs__title.css);
+@import url(./blocks/techs/__description/techs__description.css);
+@import url(./blocks/techs/__list/techs__list.css);
+@import url(./blocks/techs/__names/techs__names.css);
+
 @import url(./blocks/footer/footer.css);
 @import url(./blocks/footer/__text/footer__text.css);
 @import url(./blocks/footer/__links/footer__links.css);

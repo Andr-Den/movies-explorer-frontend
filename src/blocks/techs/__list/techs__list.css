@@ -1,0 +1,8 @@
+.techs__list {
+  margin: 0 auto 0;
+  width: 690px;
+  padding-top: 100px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  column-gap: 10px;
+}

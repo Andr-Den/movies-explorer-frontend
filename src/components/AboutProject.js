@@ -14,11 +14,11 @@ const items = [
 function AboutProject() {
   return (
     <div className="about-project">
-      <h2 className="about-project__title">О проекте</h2>
+      <h3 className="about-project__title">О проекте</h3>
       <div className="about-project__info">
         {items.map(({ subtitle, description }) => (
           <div>
-          <h3 className="about-project__subtitle">{subtitle}</h3>
+          <h4 className="about-project__subtitle">{subtitle}</h4>
           <p className="about-project__description">{description}</p>
           </div>
         ))}
