@@ -1,0 +1,5 @@
+.about-me__container {
+  padding-top: 66px;
+  display: flex;
+  justify-content: space-between;
+}
