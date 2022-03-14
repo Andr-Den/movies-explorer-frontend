@@ -5,6 +5,8 @@ import Main from './Main';
 import Register from './Register';
 import Login from './Login';
 import Profile from "./Profile"
+import Movies from './Movies';
+import  SavedMovies from './SavedMovies'
 
 function App() {
   return (
@@ -22,6 +24,12 @@ function App() {
         </Route>
         <Route path="/profile">
           <Profile />
+        </Route>
+        <Route path="/movies">
+          <Movies />
+        </Route>
+        <Route path="/saved-movies">
+          <SavedMovies />
         </Route>
         </Switch>
     </div>

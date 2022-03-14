@@ -8,8 +8,8 @@ function Header() {
       <Link to="/"><img src={logo} alt="логотип" className="header__logo" /></Link>
       <div className="header__nav">
         <div className="header__links">
-          <p>Фильмы</p>
-          <p>Сохранённые фильмы</p>
+          <Link to="/movies" className="header__link">Фильмы</Link>
+          <Link to="/saved-movies" className="header__link">Сохранённые фильмы</Link>
         </div>
         <Link className="header__account" to="/profile">Аккаунт</Link>
       </div>
