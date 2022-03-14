@@ -1,0 +1,9 @@
+.search-form__button {
+  border: none;
+  background: #4285F4;
+  border-radius: 48px;
+  background-image: url(../../../images/searchWhite.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 80px;
+}
