@@ -1,0 +1,9 @@
+.profile__info {
+  padding: 16px 0 16px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 13px;
+  color: #ffffff;
+}

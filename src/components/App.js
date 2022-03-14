@@ -4,6 +4,7 @@ import Footer from './Footer';
 import Main from './Main';
 import Register from './Register';
 import Login from './Login';
+import Profile from "./Profile"
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
         </Route>
         <Route path="/sign-in">
           <Login />
+        </Route>
+        <Route path="/profile">
+          <Profile />
         </Route>
         </Switch>
     </div>
