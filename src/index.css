@@ -79,3 +79,13 @@
 @import url(./blocks/filter/__checkbox/filter__checkbox.css);
 @import url(./blocks/filter/__label/filter__label.css);
 
+@import url(./blocks/movies-card-list/movies-card-list.css);
+@import url(./blocks/movies-card-list/__more-button/movies-card-list__more-button.css);
+
+@import url(./blocks/movie-card/movie-card.css);
+@import url(./blocks/movie-card/__header/movie-card__header.css);
+@import url(./blocks/movie-card/__name/movie-card__name.css);
+@import url(./blocks/movie-card/__duration/movie-card__duration.css);
+@import url(./blocks/movie-card/__icon/movie-card__icon.css);
+@import url(./blocks/movie-card/__film-image/movie-card__film-image.css);
+
