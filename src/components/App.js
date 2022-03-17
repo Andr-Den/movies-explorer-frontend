@@ -6,7 +6,8 @@ import Register from './Register';
 import Login from './Login';
 import Profile from "./Profile"
 import Movies from './Movies';
-import  SavedMovies from './SavedMovies'
+import SavedMovies from './SavedMovies'
+import NotFound  from './NotFound';
 
 function App() {
   return (

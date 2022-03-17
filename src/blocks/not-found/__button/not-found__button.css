@@ -1,0 +1,11 @@
+.not-found__button {
+  padding-top: 184px;
+  text-decoration: none;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #4285F4;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+}
