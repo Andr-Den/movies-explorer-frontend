@@ -1,0 +1,46 @@
+.header {
+  margin: 0 auto 0;
+  padding-bottom: 18px;
+  padding-top: 18px;
+  width: 89%;
+  max-width: 1140px;
+  color: #FFFFFF;
+}
+
+.header__logo {
+  float: left;
+}
+
+.header__nav {
+  margin: 0;
+  padding-left: 44px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__links {
+  display: flex;
+  gap: 16px;
+  align-content: center;
+}
+
+.header__link {
+  font-size: 13px;
+  line-height: 18px;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.header__account {
+  padding: 8px 20px 8px 20px;
+  border: none;
+  border-radius: 20px;
+  background-color: #313131;
+  text-decoration: none;
+  text-align: center;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 500;
+}

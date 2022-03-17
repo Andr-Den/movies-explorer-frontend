@@ -1,0 +1,37 @@
+.movie-card {
+  list-style: none;
+  width: 364px;
+  background: #222222;
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
+}
+
+.movie-card__header {
+  padding: 14px 14px 0 14px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.movie-card__name {
+  margin: 0;
+  margin-bottom: 9px;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  color: #ffffff;
+}
+
+.movie-card__duration {
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 13px;
+  color: #8B8B8B;
+}
+
+.movie-card__icon:hover {
+  cursor: pointer;
+}
+
+.movie-card__film-image {
+  margin-top: 14px;
+  max-width: 364px;
+}

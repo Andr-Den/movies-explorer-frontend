@@ -1,0 +1,42 @@
+.filter {
+  margin-left: 28px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 18px;
+  color: #ffffff;
+}
+
+.filter__label {
+  height: 20px;
+}
+
+.filter__checkbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.filter__checkbox:checked + .filter__checkbox_visible {
+  background: #3DDC84;
+  border-radius: 20px;
+  background-image: url(../../images/circle.svg);
+  background-repeat: no-repeat;
+  background-position: bottom 6px right 6px;
+}
+
+.filter__checkbox_visible {
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  border-radius: 20px;
+  background: #313131;
+  border-radius: 20px;
+  background-image: url(../../images/circle.svg);
+  background-repeat: no-repeat;
+  background-position: bottom 6px left 6px;
+}
