@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import AccountButton from '../AccountButton/AccountButton';
 import './Navigation.css'
 
@@ -10,9 +11,9 @@ function Navigation() {
       <div className="navigation__container">
         <img src={close} alt="кнопка закрытия" className="navigation__close-icon"/>
         <ul className="navigation__list">
-          <li className="navigation__link">Главная</li>
-          <li className="navigation__link navigation__link_active">Фильмы</li>
-          <li className="navigation__link">Сохранённые фильмы</li>
+          <Link to="/" className="navigation__links"><li className="navigation__link">Главная</li></Link>
+          <Link to="/movies" className="navigation__links"><li className="navigation__link navigation__link_active">Фильмы</li></Link>
+          <Link to="/saved-movies" className="navigation__links"><li className="navigation__link">Сохранённые фильмы</li></Link>
         </ul>
         <AccountButton />
       </div>

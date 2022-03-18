@@ -72,3 +72,21 @@
     padding-top: 236px;
   }
 }
+
+@media screen and (max-width: 320px){
+.profile__container {
+  max-width: 260px;
+}
+
+.profile__container{
+  padding-top: 70px;
+}
+
+.profile__button {
+  margin-top: 379px;
+}
+
+.profile__button_exit {
+  margin-top: 16px;
+}
+}

@@ -28,14 +28,14 @@ const films = [
 
 function SavedMovies() {
   return (
-      <div className="profile">
+      <div className="page">
         <Header>
-        <div className="header__nav">
-            <div className="header__links">
-              <Link to="/movies" className="header__link">Фильмы</Link>
-              <Link to="/saved-movies" className="header__link">Сохранённые фильмы</Link>
-          </div>
-          <AccountButton />
+          <div className="header__nav">
+              <div className="header__links">
+                <Link to="/movies" className="header__link">Фильмы</Link>
+                <Link to="/saved-movies" className="header__link header__link_active">Сохранённые фильмы</Link>
+            </div>
+            <AccountButton />
         </div>
         <div className="header__burger"/>
         </Header>

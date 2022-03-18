@@ -35,3 +35,19 @@
     justify-content: center;
   }
 }
+
+@media screen and (max-width: 370px){
+  .movies-card-list {
+    grid-template-columns: 300px;
+    row-gap: 36px;
+  }
+
+  .movie-card-list_all {
+    height: 1314px;
+    overflow-y: hidden;
+  }
+
+  .movies-card-list__more-button {
+    width: 240px;
+  }
+}

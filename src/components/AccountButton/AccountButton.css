@@ -1,5 +1,6 @@
 .account-button {
   padding: 8px 20px 8px 20px;
+  width: 100px;
   border: none;
   border-radius: 20px;
   background-color: #313131;
@@ -9,4 +10,12 @@
   font-size: 14px;
   line-height: 16px;
   font-weight: 500;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+}
+
+.account-button:hover {
+  cursor: pointer;
+  opacity: 0.6;
 }

@@ -21,7 +21,7 @@ function Footer() {
     <footer className="footer">
       <p className="footer__text">Учебный проект Яндекс.Практикум х BeatFilm.</p>
       <div className="footer__nav">
-        <p>&copy; 2022</p>
+        <span className="footer__copyright">&copy; 2022</span>
         <ul className="footer__links">
           {links.map(({url, text}) => (
             <li><a href={url} className="footer__link" target="_blank" rel="noreferrer">{text}</a></li>

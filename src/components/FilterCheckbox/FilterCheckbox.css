@@ -40,3 +40,9 @@
   background-repeat: no-repeat;
   background-position: bottom 6px left 6px;
 }
+
+@media screen and (max-width: 640px) {
+  .filter {
+    margin: 0 auto 0;
+  }
+}

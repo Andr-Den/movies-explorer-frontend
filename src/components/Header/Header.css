@@ -5,7 +5,6 @@
   width: 89%;
   max-width: 1140px;
   color: #FFFFFF;
-  height: 74px;
 }
 
 .header_promo {
@@ -23,7 +22,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  justify-self: center;
 }
 
 .header__links {
@@ -33,43 +31,47 @@
 }
 
 .header__link {
+  font-weight: normal;
   font-size: 13px;
   line-height: 18px;
   text-decoration: none;
   color: #ffffff;
 }
 
-.header__account {
-  padding: 8px 20px 8px 20px;
-  border: none;
-  border-radius: 20px;
-  background-color: #313131;
-  text-decoration: none;
-  text-align: center;
-  color: #ffffff;
-  font-size: 14px;
-  line-height: 16px;
+.header__link_active {
   font-weight: 500;
 }
 
+.header__link:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
 .header__burger {
-  visibility: hidden;
+  display: none;
 }
 
 @media screen and (max-width: 768px){
   .header__burger {
-    visibility: visible;
+    display: block;
     background-image: url(../../images/burger.svg);
     width: 44px;
     height: 44px;
   }
 
   .header__nav {
-    visibility: hidden;
+    display: none;
   }
 
   .header__container {
     display: flex;
     justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 320px){
+  .header__link {
+    font-size: 10px;
+    line-height: 16px;
   }
 }

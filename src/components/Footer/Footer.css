@@ -25,6 +25,8 @@
 }
 
 .footer__links {
+  margin: 0;
+  padding: 0;
   list-style-type: none;
   display: flex;
   gap: 20px;
@@ -51,5 +53,33 @@
 @media screen and (max-width: 768px){
   .footer {
     padding-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 400px){
+  .footer__text {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .footer__nav {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items:center;
+    font-size: 12px;
+    line-height: 15px;
+    color: #FFFFFF;
+  }
+
+  .footer__links {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .footer__copyright {
+    padding-top: 30px;
+    color: #8B8B8B;
   }
 }

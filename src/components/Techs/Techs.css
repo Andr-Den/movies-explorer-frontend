@@ -1,5 +1,5 @@
 .techs {
-    padding: 100px 0 100px 0;
+    padding: 70px 0 70px 0;
     background: #272727;
   }
 
@@ -33,11 +33,11 @@
 
   .techs__list {
     margin: 0 auto 0;
-    width: 690px;
+    /* width: 690px; */
     padding-top: 100px;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    column-gap: 10px;
+    gap: 10px;
   }
 
   .techs__names {
@@ -53,4 +53,36 @@
     text-align: center;
     letter-spacing: -0.04em;
     color: #ffffff;
+  }
+
+  @media screen and (max-width: 660px){
+    .techs__title {
+      padding-top: 60px;
+      font-weight: normal;
+      font-size: 30px;
+      line-height: 36px;    
+    }
+
+    .techs__description {
+      padding-top: 24px;
+      font-weight: normal;
+      font-size: 11px;
+      line-height: 16px;
+    }
+
+    .techs__list {
+      margin: 0 auto 0;
+      padding-top: 50px;
+      grid-template-columns: repeat(2, 84px);
+      justify-content: center;
+    }
+
+    .techs__names {
+      margin: 0;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 15px;
+    }
   }

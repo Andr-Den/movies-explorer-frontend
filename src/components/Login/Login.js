@@ -10,7 +10,7 @@ function Login() {
       <div className="sign">
         <form>
           <fieldset className="sign__container">
-            <Link to="/"><img src={logo} alt="логотип" className="sign__image"/></Link>
+            <Link to="/" className="sign__image"><img src={logo} alt="логотип"/></Link>
             <h2 className="sign__title">Добро пожаловать!</h2>
             <span className="sign__description">E-mail</span>
             <input type="password" className="sign__input" />

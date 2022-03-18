@@ -80,7 +80,7 @@ function Movies() {
         <Header>
           <div className="header__nav">
             <div className="header__links">
-              <Link to="/movies" className="header__link">Фильмы</Link>
+              <Link to="/movies" className="header__link header__link_active">Фильмы</Link>
               <Link to="/saved-movies" className="header__link">Сохранённые фильмы</Link>
           </div>
           <AccountButton />
@@ -88,9 +88,9 @@ function Movies() {
         <div className="header__burger"/>
         </Header>
         <SearchForm />
-        <MoviesCardList films={films}>
+        <MoviesCardList films={films}  class_height='movie-card-list_all'>
           <button className="movies-card-list__more-button">Ещё</button>
-        </MoviesCardList>
+        </MoviesCardList >
         <Footer />
       </div>
   )
