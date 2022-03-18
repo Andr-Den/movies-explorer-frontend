@@ -35,3 +35,13 @@
   margin-top: 14px;
   max-width: 364px;
 }
+
+@media screen and (max-width: 1200px){
+  .movie-card {
+    width: 339px;
+  }
+
+  .movie-card__film-image {
+    max-width: 339px;
+  }
+}

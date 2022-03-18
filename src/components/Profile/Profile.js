@@ -1,12 +1,23 @@
 import React from 'react'
 import './Profile.css'
 import Header from '../Header/Header'
+import { Link } from 'react-router-dom'
+import AccountButton from '../AccountButton/AccountButton'
 
 function Profile() {
   return (
       <div className="profile">
-        <Header />
-        <div className="sign__container">
+        <Header>
+          <div className="header__nav">
+            <div className="header__links">
+              <Link to="/movies" className="header__link">Фильмы</Link>
+              <Link to="/saved-movies" className="header__link">Сохранённые фильмы</Link>
+            </div>
+            <AccountButton />
+          </div>
+          <div className="header__burger"/>
+        </Header>
+        <div className="profile__container">
         <h2 className="profile__title">Привет, Виталий!</h2>
         <div className="profile__info">
           <span>Имя</span>

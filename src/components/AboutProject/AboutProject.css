@@ -7,9 +7,9 @@
 }
 
 .about-project__title {
+  margin: 0;
   padding-bottom: 22px;
   border-bottom: 1px solid #ffffff;
-  font-style: normal;
   font-weight: normal;
   font-size: 22px;
   line-height: 27px;
@@ -24,6 +24,8 @@
 }
 
 .about-project__subtitle {
+  margin: 0;
+  padding-top: 70px;
   font-style: normal;
   font-weight: normal;
   font-size: 20px;
@@ -33,7 +35,7 @@
 }
 
 .about-project__description {
-  width: 550px;
+max-width: 560px;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
@@ -66,4 +68,13 @@
 .about-project__digitals_frontend {
   background: #303030;
   color: #ffffff;
+}
+
+
+@media screen and (max-width: 1040px){
+  .about-project__description {
+    width: 320px;
+    font-size: 12px;
+    line-height: 18px;
+  }
 }

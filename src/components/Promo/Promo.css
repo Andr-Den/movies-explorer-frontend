@@ -1,16 +1,23 @@
 .promo {
   background-color: #073042;
-  margin: 0 auto 0;
-  width: 100vw;
+  width: 100%;
+}
+
+.promo__container {
   max-width: 1140px;
-  padding: 18px 70px 0;
+  width: 89%;
+  margin: 0 auto 0;
   position: relative;
 }
 
 .promo__image {
   position: absolute;
   bottom: 60px;
-  right: 70px;
+  right: 0;
+}
+
+.promo__logo {
+  float: left;
 }
 
 .promo__link {
@@ -53,4 +60,33 @@
   line-height: 52px;
   letter-spacing: -0.04em;
   color: #FFFFFF;
+}
+
+@media screen and (max-width: 845px){
+  .promo {
+    width: 100%;
+    padding: 18px 0 0;
+    position: relative;
+  }
+
+  .promo__logo {
+    padding-left: 30px;
+  }
+
+  .promo__nav {
+    padding-right: 30px;
+  }
+
+  .promo__title {
+    margin: 300px auto 0;
+    text-align: center;
+    padding-bottom: 140px;
+  }
+
+  .promo__image {
+    position: static;
+    width: 680px;
+    margin: 0 auto 0;
+    padding-bottom: 70px;
+  }
 }

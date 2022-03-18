@@ -47,3 +47,9 @@
   cursor: pointer;
   opacity: 0.6;
 }
+
+@media screen and (max-width: 768px){
+  .footer {
+    padding-bottom: 20px;
+  }
+}

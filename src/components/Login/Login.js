@@ -14,9 +14,11 @@ function Login() {
             <h2 className="sign__title">Добро пожаловать!</h2>
             <span className="sign__description">E-mail</span>
             <input type="password" className="sign__input" />
+            <span className="sign__input-error">Что-то пошло не так...</span>
             <span className="sign__description">Пароль</span>
             <input type="password" className="sign__input" />
-            <input type="submit" value="Зарегистрироваться" name="submit_button" className="sign__button" />
+            <span className="sign__input-error">Что-то пошло не так...</span>
+            <input type="submit" value="Зарегистрироваться" name="submit_button" className="sign__button sign__button_login" />
             <span className="sign__bottom">Ещё не зарегистрированы? <a href="/sign-up" className="sign__link">Регистрация</a></span>
           </fieldset> 
         </form>

@@ -7,6 +7,17 @@
   font-family: "Inter", sans-serif;
 }
 
+.profile__container {
+  max-width: 396px;
+  width: 100%;
+  margin: auto;
+  justify-items: center;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  border: none;
+}
+
 .profile__title {
   font-style: normal;
   font-weight: 500;
@@ -54,4 +65,10 @@
 .profile__button_exit {
   margin-top: 16px;
   color: #EE3465;
+}
+
+@media screen and (max-width: 768px){
+  .profile__container{
+    padding-top: 236px;
+  }
 }

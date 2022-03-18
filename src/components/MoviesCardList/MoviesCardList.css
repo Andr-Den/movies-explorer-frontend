@@ -26,3 +26,12 @@
   align-self: center;
   justify-content: center;
 }
+
+@media screen and (max-width: 1200px){
+  .movies-card-list {
+    grid-template-columns: repeat(auto-fill, 339px);
+    column-gap: 30px;
+    row-gap: 36px;
+    justify-content: center;
+  }
+}
