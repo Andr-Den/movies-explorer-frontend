@@ -3,6 +3,10 @@ import Header from '../Header/Header'
 import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import AccountButton from '../AccountButton/AccountButton';
+import { Link } from 'react-router-dom';
+
+import '../Header/Header.css'
 
 import save_active from '../../images/save_active.svg'
 import save_inactive from '../../images/save_inactive.svg'
@@ -73,7 +77,16 @@ const films = [
 function Movies() {
   return (
       <div className="page">
-        <Header />
+        <Header>
+          <div className="header__nav">
+            <div className="header__links">
+              <Link to="/movies" className="header__link">Фильмы</Link>
+              <Link to="/saved-movies" className="header__link">Сохранённые фильмы</Link>
+          </div>
+          <AccountButton />
+        </div>
+        <div className="header__burger"/>
+        </Header>
         <SearchForm />
         <MoviesCardList films={films}>
           <button className="movies-card-list__more-button">Ещё</button>
