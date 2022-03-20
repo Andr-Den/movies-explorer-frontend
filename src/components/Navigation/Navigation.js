@@ -3,13 +3,11 @@ import { Link } from 'react-router-dom';
 import AccountButton from '../AccountButton/AccountButton';
 import './Navigation.css'
 
-import close from '../../images/close.svg'
-
-function Navigation() {
+function Navigation({isOpen, onClose}) {
   return (
-    <div className="navigation">
+    <div className={`navigation ${isOpen ? 'navigation_opened' : ''}`}>
       <div className="navigation__container">
-        <img src={close} alt="кнопка закрытия" className="navigation__close-icon"/>
+        <button className="navigation__close-icon" onClick={onClose}/>
         <ul className="navigation__list">
           <Link to="/" className="navigation__links"><li className="navigation__link">Главная</li></Link>
           <Link to="/movies" className="navigation__links"><li className="navigation__link navigation__link_active">Фильмы</li></Link>

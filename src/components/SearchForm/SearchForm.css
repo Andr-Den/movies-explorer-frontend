@@ -36,6 +36,7 @@
   background-position: center;
   background-repeat: no-repeat;
   width: 80px;
+  height: 34px;
 }
 
 .search-form__button:hover {

@@ -3,8 +3,18 @@ import './Profile.css'
 import Header from '../Header/Header'
 import { Link } from 'react-router-dom'
 import AccountButton from '../AccountButton/AccountButton'
+import Navigation from '../Navigation/Navigation'
 
 function Profile() {
+  const [isMenuOpen, isSetMenuOpen] = React.useState(false);
+
+  function handleOpenMenu() {
+    isSetMenuOpen(true) 
+  }
+
+  function handleCloseMenu() {
+    isSetMenuOpen(false)
+  }
   return (
       <div className="profile">
         <Header>
@@ -15,8 +25,9 @@ function Profile() {
             </div>
             <AccountButton />
           </div>
-          <div className="header__burger"/>
+          <button className="header__burger" onClick={handleOpenMenu}/>
         </Header>
+        <Navigation isOpen={isMenuOpen} onClose={handleCloseMenu}/>
         <div className="profile__container">
         <h2 className="profile__title">Привет, Виталий!</h2>
         <div className="profile__info">

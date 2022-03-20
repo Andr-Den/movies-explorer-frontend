@@ -53,6 +53,8 @@
 
 @media screen and (max-width: 768px){
   .header__burger {
+    border: none;
+    background-color: #202020;
     display: block;
     background-image: url(../../images/burger.svg);
     width: 44px;

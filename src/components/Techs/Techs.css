@@ -56,6 +56,10 @@
   }
 
   @media screen and (max-width: 660px){
+    .techs {
+      background: #202020;
+    }
+
     .techs__title {
       padding-top: 60px;
       font-weight: normal;

@@ -4,29 +4,39 @@ import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import AccountButton from '../AccountButton/AccountButton';
+import Navigation from '../Navigation/Navigation'
 import { Link } from 'react-router-dom';
 
 import film_01 from '../../images/film-01.jpg'
 import film_02 from '../../images/film-02.jpg'
 import film_03 from '../../images/film-03.jpg'
-import delete_icon from '../../images/delete-icon.svg'
 
 const films = [
   {
     image: film_01,
-    save:  delete_icon
+    save:  'movie-card__icon_close'
   },
   {
     image: film_02,
-    save: delete_icon
+    save: 'movie-card__icon_close'
   },
   {
     image: film_03,
-    save: delete_icon
+    save: 'movie-card__icon_close'
   }
 ]
 
 function SavedMovies() {
+
+  const [isMenuOpen, isSetMenuOpen] = React.useState(false);
+
+  function handleOpenMenu() {
+    isSetMenuOpen(true) 
+  }
+
+  function handleCloseMenu() {
+    isSetMenuOpen(false)
+  }
   return (
       <div className="page">
         <Header>
@@ -37,8 +47,9 @@ function SavedMovies() {
             </div>
             <AccountButton />
         </div>
-        <div className="header__burger"/>
+        <button className="header__burger" onClick={handleOpenMenu}/>
         </Header>
+        <Navigation isOpen={isMenuOpen} onClose={handleCloseMenu}/>
         <SearchForm />
         <MoviesCardList films={films}/>
         <Footer />
