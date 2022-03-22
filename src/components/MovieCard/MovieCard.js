@@ -1,17 +1,17 @@
 import React from 'react'
 import './MovieCard.css'
 
-function MovieCard({name, duration, save, image}) {
+function MovieCard({film}) {
   return (
     <li className="movie-card">
       <div className="movie-card__header">
         <div>
-          <h5 className="movie-card__name">{name}</h5>
-          <span className="movie-card__duration">{duration}</span>
+          <h5 className="movie-card__name">{film.nameRU}</h5>
+          <span className="movie-card__duration">{`${film.duration} мин.`}</span>
         </div>
-        <button alt="иконка сохранения" className={`movie-card__icon ${save} `}/>
+        <button className={`movie-card__icon`}/>
       </div>
-      <img src={image} alt="кадр" className="movie-card__film-image"/>
+      <img src={`https://api.nomoreparties.co/${film.image.url}`} alt="кадр" className="movie-card__film-image"/>
     </li>
 )}
 

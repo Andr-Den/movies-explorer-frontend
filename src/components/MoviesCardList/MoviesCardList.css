@@ -27,6 +27,18 @@
   justify-content: center;
 }
 
+.movies-card-list__more-button:hover {
+  cursor: pointer;
+}
+
+.movies-card-list__error {
+  margin: 200px 0 200px;
+  font-size: 12px;
+  line-height: 15px;
+  color: #ffffff;
+  text-align: center;
+}
+
 @media screen and (max-width: 1200px){
   .movies-card-list {
     grid-template-columns: repeat(auto-fill, 339px);
