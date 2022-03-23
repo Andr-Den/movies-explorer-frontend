@@ -18,16 +18,7 @@ function Movies() {
   const [searchError, setSearchError] = React.useState(false);
   const [searchInput, setSearchInput] = React.useState();
   const [emptySearch, setEmptySearch] = React.useState(false);
-  const [addCards, setAddCards] = React.useState('');
-
-  const screenWidth = window.screen.width;
-  function widthView(screenWidth) {
-    if (screenWidth < 1280) {
-      setAddCards(10);
-    } else {
-      setAddCards(15)
-    }
-  };
+  const [addCards, setAddCards] = React.useState(15);
 
   function handleOpenMenu() {
     isSetMenuOpen(true) 
@@ -43,7 +34,7 @@ function Movies() {
     setEmptySearch(true)
     moviesApi.getAllMovies()
     .then((films) => {
-      setFilms(films.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)).slice(0,10))
+      setFilms(films.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)).slice(0,12))
       setPreload(false)
     })
     .catch((err) => {
@@ -56,13 +47,11 @@ function Movies() {
 
   function handleAddCards(e) {
     e.preventDefault();
-    widthView(screenWidth)
-    console.log(addCards)
-    // setAddCards(addCards+3)
-    // moviesApi.getAllMovies()
-    // .then((films) => {
-    //   setFilms(films.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)).slice(0,addCards))
-    // });
+    setAddCards(addCards+3)
+    moviesApi.getAllMovies()
+    .then((films) => {
+      setFilms(films.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)).slice(0,addCards))
+    });
   }
 
   function handleSearchChange(e) {
@@ -83,7 +72,6 @@ function Movies() {
         </Header>
         <Navigation isOpen={isMenuOpen} onClose={handleCloseMenu}/>
         <SearchForm onSubmit={handleSearch} onChange={handleSearchChange}/>
-        <h2>{addCards}</h2>
         {preload ? <Preloader /> : 
         <>
         {searchError ? <p className="movies-card-list__error">Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</p> : 

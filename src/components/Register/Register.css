@@ -85,6 +85,10 @@
   border: none;
 }
 
+.sign__button:hover {
+  cursor: pointer;
+}
+
 .sign__button_login {
   margin: 140px 0 0;
 }
