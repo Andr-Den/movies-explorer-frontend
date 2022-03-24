@@ -12,6 +12,12 @@ export const register = (name, email, password) => {
   .then((res) => {
     return res;
   })
+  .then((data) => {
+    if (data.token) {
+      localStorage.setItem('token', data.token);
+      return data;
+    }
+   })
 };
 
 export const authorize = (email, password) => {
@@ -34,7 +40,7 @@ export const authorize = (email, password) => {
    })
 };
 
-export const userEmail = (token) => {
+export const getUser = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {

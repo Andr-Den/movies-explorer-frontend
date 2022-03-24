@@ -4,8 +4,12 @@ import Header from '../Header/Header'
 import { Link } from 'react-router-dom'
 import AccountButton from '../AccountButton/AccountButton'
 import Navigation from '../Navigation/Navigation'
+import { CurrentUserContext } from '../../context/CurrentUserContext'
 
-function Profile({name, email, onClick, onUpdateUser, setUserName, setUserEmail}) {
+function Profile({ onClick, onUpdateUser }) {
+  const currentUser = React.useContext(CurrentUserContext);
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
   const [isMenuOpen, isSetMenuOpen] = React.useState(false);
 
   function handleOpenMenu() {
@@ -17,11 +21,11 @@ function Profile({name, email, onClick, onUpdateUser, setUserName, setUserEmail}
   }
 
   function handleNameChange(e) {
-    setUserName(e.target.value);
+    setName(e.target.value);
   }
 
   function handleEmailChange(e) {
-    setUserEmail(e.target.value);
+    setEmail(e.target.value);
   }
 
   function handleSubmit(e) {
@@ -31,6 +35,12 @@ function Profile({name, email, onClick, onUpdateUser, setUserName, setUserEmail}
       email,
     });
   } 
+
+  React.useEffect(() => {
+    setName(currentUser.name);
+    setEmail(currentUser.email);
+  }, [currentUser]); 
+
   return (
       <div className="profile">
         <Header>

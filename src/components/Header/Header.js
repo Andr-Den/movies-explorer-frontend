@@ -8,7 +8,6 @@ function Header({children, back_color}) {
   return (
     <header className={`header ${back_color}`}>
       <div className="header__container">
-        {/* <Link to="/"><img src={logo} alt="логотип" className="header__logo" /></Link> */}
         <Link to="/"><img src={logo} alt="логотип" className="header__logo" /></Link>
         {children}
       </div>

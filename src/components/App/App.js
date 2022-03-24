@@ -25,8 +25,15 @@ function App() {
 
   function handleRegisterSubmit(e) {
     e.preventDefault();
-    MainApi.register(name, email, password).then((res) => {
+    MainApi.register(name, email, password)
+    .then((data) => {
+      if (data?.token) {
+      setLoggedIn(true);
+      setName();
+      setEmail()
+      setPassword()
       history.push('/movies');
+    }
       })
       .catch((err) => {
         console.log(err);
@@ -38,7 +45,6 @@ function App() {
     MainApi.authorize(email, password)
     .then((data) => {
       if (data?.token) {
-        console.log(data)
         setUserEmail(email)
         history.push('/movies');
         setEmail()
@@ -53,10 +59,9 @@ function App() {
   React.useEffect(() => {
     const token = localStorage.getItem('token');
     if (token && !loggedIn){
-      MainApi.userEmail(token).then((res) => {
+      MainApi.getUser(token).then((res) => {
         if (res) {
-          setUserName(res.data.name)
-          setUserEmail(res.data.email)
+          setCurrentUser(res.data)
           setLoggedIn(true)
           history.push('/movies');
         }
@@ -77,6 +82,7 @@ function App() {
 
   function signOut(){
     localStorage.removeItem('token');
+    setLoggedIn(false);
     history.push('/');
   }
 
@@ -84,11 +90,12 @@ function App() {
     return (
       <CurrentUserContext.Provider value={currentUser}>
         <Profile 
-          name={userName} 
-          email={userEmail} 
+          name={name}
+          email={email}
+          userName={userName}
           onClick={signOut} 
-          setUserName={setUserName} 
-          setUserEmail={setUserEmail} 
+          setName={setName} 
+          setEmail={setEmail} 
           onUpdateUser={handleUpdateUser}
         />
       </CurrentUserContext.Provider>
@@ -115,7 +122,7 @@ function App() {
     <div className="page">
       <Switch>
         <Route exact path="/">
-          <Main />
+          <Main loggedIn={loggedIn}/>
         </Route>
         <Route path="/sign-up">
           <Register 
