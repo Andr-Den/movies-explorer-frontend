@@ -27,7 +27,6 @@ function MovieCard({data, page, onMovieDelete, isSaved = false, getId}) {
     }
   }
 
-
   return (
     <li className="movie-card">
       <div className="movie-card__header">

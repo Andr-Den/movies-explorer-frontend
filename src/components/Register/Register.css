@@ -93,6 +93,15 @@
   margin: 140px 0 0;
 }
 
+.sign__button_no-active {
+  opacity: .2;
+}
+
+.sign__button_no-active:hover {
+cursor: default;
+opacity: .2;
+}
+
 .sign__bottom {
   padding-top: 16px;
   font-weight: normal;
