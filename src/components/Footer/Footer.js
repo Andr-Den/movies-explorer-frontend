@@ -23,8 +23,8 @@ function Footer() {
       <div className="footer__nav">
         <span className="footer__copyright">&copy; 2022</span>
         <ul className="footer__links">
-          {links.map(({url, text}) => (
-            <li><a href={url} className="footer__link" target="_blank" rel="noreferrer">{text}</a></li>
+          {links.map(({url, text}, index) => (
+            <li key={index}><a href={url} className="footer__link" target="_blank" rel="noreferrer">{text}</a></li>
           ))}
         </ul>
     </div>

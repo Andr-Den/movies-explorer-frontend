@@ -2,16 +2,22 @@ import React from 'react'
 import './MoviesCardList.css'
 import MovieCard from '../MovieCard/MovieCard';
 
-function MoviesCardList({ films, class_height, onClick, class_active }) {
-  const [isLiked, setIsLiked] = React.useState(false);
-  const cardLikeButtonClassName =  (
-    `${isLiked ? 'movie-card__icon_active' : ''}`
-  );
+function MoviesCardList({ films, savedFilms, class_height, onClick, page, onMovieDelete }) {
+
+  function isSaved(film) {
+    return savedFilms.map((savedFilm) => savedFilm.movieId).includes(film.id)
+  }
+
+  function getId(film) {
+    const movie = savedFilms.find(m => m.movieId === film.id)
+    return movie
+   }
+
   return (
     <>
         <ul className={`movies-card-list ${class_height}`}>
-          {films.map((film) => (
-            <MovieCard film={film} class_active={cardLikeButtonClassName}/>
+          {films.map((film, index) => (
+            <MovieCard data={film} page={page} onMovieDelete={onMovieDelete} key={index} isSaved={isSaved(film)} getId={getId(film)}/>
           ))}
         </ul>
         {films.length >= 12 ? <button className="movies-card-list__more-button" onClick={onClick}>Ещё</button> : ''}

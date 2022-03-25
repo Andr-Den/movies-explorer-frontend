@@ -46,7 +46,7 @@
   background-image: url(../../images/save_active.svg);
 }
 
-.movie-card__icon_close {
+.movie-card__icon_delete {
   background-image: url(../../images/delete-icon.svg);
 }
 

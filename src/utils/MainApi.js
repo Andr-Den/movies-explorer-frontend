@@ -69,6 +69,62 @@ export const editUser = (name, email, token) => {
   })
 };
 
+export const getSavedFilms = (token) => {
+  return fetch(`${BASE_URL}/movies`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization' : `Bearer ${token}`
+    },
+  })
+  .then(checkResponse)
+  .then((res) => {
+    return res;
+  })
+};
+
+export const saveMovie = (data, token) => {
+  return fetch(`${BASE_URL}/movies`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization' : `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      country: data.country,
+      director: data.director,
+      duration: data.duration,
+      year: data.year,
+      description: data.description,
+      image: data.image.url,
+      trailerLink: data.trailerLink,
+      nameRU: data.nameRU,
+      nameEN: data.nameEN,
+      thumbnail: data.image.url,
+      movieId: data.id,
+    }
+    )
+  })
+  .then(checkResponse)
+  .then((res) => {
+    return res;
+  })
+};
+
+export const deleteMovie = (data, token) => {
+  return fetch(`${BASE_URL}/movies/` + data._id, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization' : `Bearer ${token}`
+    },
+  })
+  .then(checkResponse)
+  .then((res) => {
+    return res;
+  })
+};
+
 const checkResponse = (res) => {
   if (res.ok) {
     return res.json();

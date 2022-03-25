@@ -7,8 +7,8 @@ import AccountButton from '../AccountButton/AccountButton';
 import Navigation from '../Navigation/Navigation'
 import { Link } from 'react-router-dom';
 import { moviesApi } from '../../utils/MoviesApi';
+import * as MainApi from '../../utils/MainApi'
 import Preloader from '../Preloader/Preloader'
-
 import '../Header/Header.css'
 
 function Movies() {
@@ -18,7 +18,16 @@ function Movies() {
   const [searchError, setSearchError] = React.useState(false);
   const [searchInput, setSearchInput] = React.useState();
   const [emptySearch, setEmptySearch] = React.useState(false);
-  const [addCards, setAddCards] = React.useState(15);
+  const [addMovies, setAddMovies] = React.useState(15);
+  const [savedFilms, setSavedFilms] = React.useState([]);
+
+  React.useEffect(() => {
+    const token = localStorage.getItem('token');
+    MainApi.getSavedFilms(token)
+    .then((films) => {
+      setSavedFilms(films.data)
+    })
+  }, [setSavedFilms])
 
   function handleOpenMenu() {
     isSetMenuOpen(true) 
@@ -44,13 +53,12 @@ function Movies() {
     });
   }
 
-
-  function handleAddCards(e) {
+  function handleAddMovies(e) {
     e.preventDefault();
-    setAddCards(addCards+3)
+    setAddMovies(addMovies+3)
     moviesApi.getAllMovies()
     .then((films) => {
-      setFilms(films.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)).slice(0,addCards))
+      setFilms(films.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)).slice(0,addMovies))
     });
   }
 
@@ -78,7 +86,7 @@ function Movies() {
           <>
             {
               films.length === 0 && emptySearch ? <p className="movies-card-list__error">Ничего не найдено</p> : 
-              <MoviesCardList films={films} searchInput={searchInput} class_height='movie-card-list_all' onClick={handleAddCards} addCards={addCards}/>
+              <MoviesCardList films={films} savedFilms={savedFilms} searchInput={searchInput} class_height='movie-card-list_all' onClick={handleAddMovies} />
             }
           </>
         }

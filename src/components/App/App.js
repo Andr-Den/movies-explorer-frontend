@@ -17,8 +17,6 @@ function App() {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [userName, setUserName] = React.useState('');
-  const [userEmail, setUserEmail] = React.useState('');
   const history = useHistory();
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser,  setCurrentUser ] = React.useState({});
@@ -45,7 +43,6 @@ function App() {
     MainApi.authorize(email, password)
     .then((data) => {
       if (data?.token) {
-        setUserEmail(email)
         history.push('/movies');
         setEmail()
         setPassword()
@@ -90,12 +87,7 @@ function App() {
     return (
       <CurrentUserContext.Provider value={currentUser}>
         <Profile 
-          name={name}
-          email={email}
-          userName={userName}
           onClick={signOut} 
-          setName={setName} 
-          setEmail={setEmail} 
           onUpdateUser={handleUpdateUser}
         />
       </CurrentUserContext.Provider>

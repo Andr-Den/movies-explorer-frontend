@@ -6,29 +6,11 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import AccountButton from '../AccountButton/AccountButton';
 import Navigation from '../Navigation/Navigation'
 import { Link } from 'react-router-dom';
-
-import film_01 from '../../images/film-01.jpg'
-import film_02 from '../../images/film-02.jpg'
-import film_03 from '../../images/film-03.jpg'
-
-const films = [
-  {
-    image: film_01,
-    save:  'movie-card__icon_close'
-  },
-  {
-    image: film_02,
-    save: 'movie-card__icon_close'
-  },
-  {
-    image: film_03,
-    save: 'movie-card__icon_close'
-  }
-]
+import * as MainApi from '../../utils/MainApi';
 
 function SavedMovies() {
-
   const [isMenuOpen, isSetMenuOpen] = React.useState(false);
+  const [savedFilms, setSavedFilms] = React.useState([]);
 
   function handleOpenMenu() {
     isSetMenuOpen(true) 
@@ -37,6 +19,26 @@ function SavedMovies() {
   function handleCloseMenu() {
     isSetMenuOpen(false)
   }
+
+  React.useEffect(() => {
+    const token = localStorage.getItem('token');
+    MainApi.getSavedFilms(token)
+    .then((films) => {
+      setSavedFilms(films.data)
+    })
+  }, [setSavedFilms])
+
+function handleMovieDelete(data) {
+  const token = localStorage.getItem('token');
+  MainApi.deleteMovie(data, token)
+  .then(() => {
+    MainApi.getSavedFilms(token)
+    .then((films) => {
+      setSavedFilms(films.data)
+    })
+  })
+}
+
   return (
       <div className="page">
         <Header>
@@ -51,7 +53,7 @@ function SavedMovies() {
         </Header>
         <Navigation isOpen={isMenuOpen} onClose={handleCloseMenu}/>
         <SearchForm />
-        <MoviesCardList films={films}/>
+        <MoviesCardList savedFilms={savedFilms} films={savedFilms} page={true} onMovieDelete={handleMovieDelete} setSavedFilms={setSavedFilms}/>
         <Footer />
       </div>
   )
