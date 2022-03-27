@@ -69,7 +69,7 @@ function SavedMovies() {
         </div>
         <button className="header__burger" onClick={handleOpenMenu}/>
         </Header>
-        <Navigation isOpen={isMenuOpen} onClose={handleCloseMenu}/>
+        <Navigation isOpen={isMenuOpen} onClose={handleCloseMenu} pageSavedMovies="navigation__link_active"/>
         <SearchForm onSubmit={handleSearch} onChange={handleSearchChange} errorName={errorName} isSearchValid={isSearchValid}/>
         <MoviesCardList savedFilms={savedFilms} films={savedFilms} page={true} onMovieDelete={handleMovieDelete} setSavedFilms={setSavedFilms}/>
         <Footer />

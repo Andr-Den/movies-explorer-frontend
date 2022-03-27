@@ -33,12 +33,7 @@ function Movies() {
     } else if (windowInnerWidth >= 320) {
       setAddMovies(5)
     }
-    const token = localStorage.getItem('token');
-    MainApi.getSavedFilms(token)
-    .then((films) => {
-      setSavedFilms(films.data)
-    })
-  }, [setSavedFilms])
+  }, [films])
 
   function handleOpenMenu() {
     isSetMenuOpen(true) 
@@ -62,7 +57,12 @@ function Movies() {
     if (searchInput != null) {
       setPreload(true);
       setEmptySearch(true)
-     setIsSearchValid(true);
+      setIsSearchValid(true);
+      const token = localStorage.getItem('token');
+      MainApi.getSavedFilms(token)
+      .then((films) => {
+        setSavedFilms(films.data)
+      })
       moviesApi.getAllMovies()
       .then((films) => {
         if (!isChecked) {
@@ -117,7 +117,7 @@ function Movies() {
         </div>
         <button className="header__burger" onClick={handleOpenMenu}/>
         </Header>
-        <Navigation isOpen={isMenuOpen} onClose={handleCloseMenu}/>
+        <Navigation isOpen={isMenuOpen} onClose={handleCloseMenu} pageMovies="navigation__link_active"/>
         <SearchForm onSubmit={handleSearch} onChange={handleSearchChange} errorName={errorName} isSearchValid={isSearchValid} onClick={handleCheck}/>
         {preload ? <Preloader /> : 
         <>
