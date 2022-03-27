@@ -61,15 +61,10 @@
 }
 
 .sign__input-error {
-  display: none;
   font-weight: normal;
   font-size: 10px;
   line-height: 12px;
   color: #FF0000;
-}
-
-.sign__input-error_active {
-  display: block;
 }
 
 .sign__button {

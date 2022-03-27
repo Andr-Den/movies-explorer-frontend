@@ -20,6 +20,8 @@ function Movies() {
   const [emptySearch, setEmptySearch] = React.useState(false);
   const [addMovies, setAddMovies] = React.useState(15);
   const [savedFilms, setSavedFilms] = React.useState([]);
+  const [errorName, setErrorName] = React.useState();
+  const [isSearchValid, setIsSearchValid] = React.useState(false);
 
   React.useEffect(() => {
     const token = localStorage.getItem('token');
@@ -39,8 +41,10 @@ function Movies() {
 
   function handleSearch(e) {
     e.preventDefault();
-    setPreload(true);
+    if (searchInput != null)
+    {setPreload(true);
     setEmptySearch(true)
+    setIsSearchValid(true);
     moviesApi.getAllMovies()
     .then((films) => {
       setFilms(films.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)).slice(0,12))
@@ -51,6 +55,10 @@ function Movies() {
       setSearchError(true)
       console.log(err);
     });
+  } else {
+    setErrorName("Нужно ввести ключевое слово")
+    setIsSearchValid(false);
+  }
   }
 
   function handleAddMovies(e) {
@@ -79,7 +87,7 @@ function Movies() {
         <button className="header__burger" onClick={handleOpenMenu}/>
         </Header>
         <Navigation isOpen={isMenuOpen} onClose={handleCloseMenu}/>
-        <SearchForm onSubmit={handleSearch} onChange={handleSearchChange}/>
+        <SearchForm onSubmit={handleSearch} onChange={handleSearchChange} errorName={errorName} isSearchValid={isSearchValid} />
         {preload ? <Preloader /> : 
         <>
         {searchError ? <p className="movies-card-list__error">Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</p> : 

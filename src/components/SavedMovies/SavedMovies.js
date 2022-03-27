@@ -11,6 +11,9 @@ import * as MainApi from '../../utils/MainApi';
 function SavedMovies() {
   const [isMenuOpen, isSetMenuOpen] = React.useState(false);
   const [savedFilms, setSavedFilms] = React.useState([]);
+  const [searchInput, setSearchInput] = React.useState();
+  const [errorName, setErrorName] = React.useState();
+  const [isSearchValid, setIsSearchValid] = React.useState(false);
 
   function handleOpenMenu() {
     isSetMenuOpen(true) 
@@ -28,16 +31,31 @@ function SavedMovies() {
     })
   }, [setSavedFilms])
 
-function handleMovieDelete(data) {
-  const token = localStorage.getItem('token');
-  MainApi.deleteMovie(data, token)
-  .then(() => {
-    MainApi.getSavedFilms(token)
-    .then((films) => {
-      setSavedFilms(films.data)
+  function handleSearch(e) {
+    e.preventDefault();
+    if (searchInput != null)
+      {
+        setIsSearchValid(true);
+        setSavedFilms(savedFilms.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)).slice(0,12))
+      } else {
+        setErrorName("Нужно ввести ключевое слово")
+        setIsSearchValid(false);
+      }
+  }
+  function handleSearchChange(e) {
+    setSearchInput(e.target.value);
+  }
+
+  function handleMovieDelete(data) {
+    const token = localStorage.getItem('token');
+    MainApi.deleteMovie(data, token)
+    .then(() => {
+      MainApi.getSavedFilms(token)
+      .then((films) => {
+        setSavedFilms(films.data)
+      })
     })
-  })
-}
+  }
 
   return (
       <div className="page">
@@ -52,7 +70,7 @@ function handleMovieDelete(data) {
         <button className="header__burger" onClick={handleOpenMenu}/>
         </Header>
         <Navigation isOpen={isMenuOpen} onClose={handleCloseMenu}/>
-        <SearchForm />
+        <SearchForm onSubmit={handleSearch} onChange={handleSearchChange} errorName={errorName} isSearchValid={isSearchValid}/>
         <MoviesCardList savedFilms={savedFilms} films={savedFilms} page={true} onMovieDelete={handleMovieDelete} setSavedFilms={setSavedFilms}/>
         <Footer />
       </div>
