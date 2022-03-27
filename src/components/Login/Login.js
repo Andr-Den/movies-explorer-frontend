@@ -34,10 +34,10 @@ function Login({handleSubmit, password, setPassword, email, setEmail, buttonText
             <Link to="/" className="sign__image"><img src={logo} alt="логотип"/></Link>
             <h2 className="sign__title">Добро пожаловать!</h2>
             <span className="sign__description">E-mail</span>
-            <input type="email" className="sign__input" onChange={handleEmailChange} value={email} required/>
+            <input type="email" className="sign__input" onChange={handleEmailChange} value={email || ''} required/>
             {!isEmailValid ? <span className="sign__input-error sign__input-error_active">{errorEmail}</span> : ''}
             <span className="sign__description">Пароль</span>
-            <input type="password" className="sign__input" onChange={handlePasswordChange} value={password} required/>
+            <input type="password" className="sign__input" onChange={handlePasswordChange} value={password || ''} required/>
             {!isPasswordValid ? <span className="sign__input-error sign__input-error_active">{errorPassword}</span> : ''}
             <input type="submit" value={buttonText} name="submit_button" className={`sign__button sign__button_login ${NoActiveButton}`}/>
             <span className="sign__bottom">Ещё не зарегистрированы? <a href="/sign-up" className="sign__link">Регистрация</a></span>

@@ -20,7 +20,7 @@ function Techs() {
         <p className="techs__description">На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
         <div className="techs__list">
           {technologies.map((text) => (
-            <h4 className="techs__names">{text}</h4>
+            <h4 className="techs__names" key={text}>{text}</h4>
           ))}
         </div>
       </div>

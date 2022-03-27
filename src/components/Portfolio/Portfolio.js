@@ -20,7 +20,7 @@ function Portfolio() {
       <h4 className="portfolio__title">Портфолио</h4>
       <ul className="portfolio__list">
         {links.map(({link, text}) => (
-          <li className="portfolio__links">
+          <li className="portfolio__links" key={text}>
             <a href={link} target="_blank" rel="noreferrer" className="portfolio__link"><span>{text}</span></a>
             <img src={arrow} alt=""/>
           </li>

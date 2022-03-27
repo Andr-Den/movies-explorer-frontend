@@ -11,6 +11,13 @@ function Profile({ onClick, onUpdateUser }) {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [isMenuOpen, isSetMenuOpen] = React.useState(false);
+  const [errorEmail, setErrorEmail] = React.useState();
+  const [errorName, setErrorName] = React.useState();
+  const [isEmailValid, setIsEmailValid] = React.useState(false);
+  const [isNameValid, setIsNameValid] = React.useState(false);
+  const NoActiveButton = (
+    `${(isNameValid && isEmailValid) ? '' : 'sign__button_no-active'}`
+  );
 
   function handleOpenMenu() {
     isSetMenuOpen(true) 
@@ -21,10 +28,14 @@ function Profile({ onClick, onUpdateUser }) {
   }
 
   function handleNameChange(e) {
+    setErrorName(e.target.validationMessage);
+    setIsNameValid(e.target.checkValidity());
     setName(e.target.value);
   }
 
   function handleEmailChange(e) {
+    setErrorEmail(e.target.validationMessage);
+    setIsEmailValid(e.target.checkValidity());
     setEmail(e.target.value);
   }
 
@@ -59,14 +70,16 @@ function Profile({ onClick, onUpdateUser }) {
           <h2 className="profile__title">Привет, {name}!</h2>
           <div className="profile__info">
             <span>Имя</span>
-            <input type="text" value={name} onChange={handleNameChange} className="profile__input"/>
+            <input type="text" value={name} onChange={handleNameChange} className="profile__input" minLength="2" maxLength="30" required/>
           </div>
+          {!isNameValid ? <span className="sign__input-error sign__input-error_active">{errorName}</span> : ''}
           <div className="profile__line"/>
           <div className="profile__info">
             <span>E-mail</span>
             <input type="email" value={email} onChange={handleEmailChange} className="profile__input"/>
           </div>
-          <input type="submit" value="Редактировать" className="profile__button"/>
+          {!isEmailValid ? <span className="sign__input-error sign__input-error_active">{errorEmail}</span> : ''}
+          <input type="submit" value="Редактировать" className={`profile__button ${NoActiveButton}`} />
           <button className="profile__button profile__button_exit" onClick={onClick}>Выйти из аккаунта</button>
         </fieldset>
         </form>

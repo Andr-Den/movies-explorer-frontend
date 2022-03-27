@@ -18,7 +18,7 @@ function AboutProject() {
       <h3 className="about-project__title">О проекте</h3>
       <div className="about-project__info">
         {items.map(({ subtitle, description }) => (
-          <div>
+          <div key={subtitle}>
           <h4 className="about-project__subtitle">{subtitle}</h4>
           <p className="about-project__description">{description}</p>
           </div>

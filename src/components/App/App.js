@@ -11,6 +11,7 @@ import NotFound  from '../NotFound/NotFound';
 import * as MainApi from '../../utils/MainApi';
 import ProtectedRoute from '../ProtectedRoute';
 import {CurrentUserContext} from '../../context/CurrentUserContext'
+import InfoTooltip from '../InfoToolTip/InfoTooltip';
 
 
 function App() {
@@ -20,6 +21,8 @@ function App() {
   const history = useHistory();
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser,  setCurrentUser ] = React.useState({});
+  const [popupErrorOpen, setPopupErrorOpen] = React.useState(false);
+  const [tooltipErrorText, setTooltipErrorText] = React.useState(false);
 
   function handleRegisterSubmit(e) {
     e.preventDefault();
@@ -27,14 +30,18 @@ function App() {
     .then((data) => {
       if (data?.token) {
       setLoggedIn(true);
+      setCurrentUser(data)
       setName();
       setEmail()
       setPassword()
       history.push('/movies');
     }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        if (error === 'Ошибка: 409') {
+          setTooltipErrorText('Пользователь с таким email уже существует');
+        }
+        setPopupErrorOpen(true)
       });
   }
 
@@ -48,8 +55,11 @@ function App() {
         setPassword()
       }
     })
-    .catch((err) => {
-      console.log(err);
+    .catch((error) => {
+      if (error === 'Ошибка: 401') {
+        setTooltipErrorText('Неправильные почта или пароль');
+      }
+      setPopupErrorOpen(true)
     });
   }
 
@@ -63,7 +73,8 @@ function App() {
           history.push('/movies');
         }
       })
-      .catch((err) => console.log(err));
+      .catch((error) => console.log(error)
+      );
     }
   })
 
@@ -74,13 +85,22 @@ function App() {
       setCurrentUser(result.data)
     }
     )
-    .catch((err) => console.log(err));
+    .catch((error) => {
+      if (error === 'Ошибка: 409') {
+        setTooltipErrorText('Пользователь с таким email уже существует');
+      }
+      setPopupErrorOpen(true)
+    });
   }
 
   function signOut(){
     localStorage.removeItem('token');
     setLoggedIn(false);
     history.push('/');
+  }
+
+  function popupErrorClose() {
+    setPopupErrorOpen(false)
   }
 
   const ComponentProfile = () => {
@@ -90,6 +110,7 @@ function App() {
           onClick={signOut} 
           onUpdateUser={handleUpdateUser}
         />
+        <InfoTooltip popupOpen={popupErrorOpen} tooltipErrorText={tooltipErrorText} popupClose={popupErrorClose}/>
       </CurrentUserContext.Provider>
     )
   }
@@ -125,6 +146,7 @@ function App() {
             setPassword={setPassword}
             email={email}
             setEmail={setEmail} />
+          <InfoTooltip popupOpen={popupErrorOpen} tooltipErrorText={tooltipErrorText} popupClose={popupErrorClose}/>
         </Route>
         <Route path="/sign-in">
           <Login 
@@ -134,6 +156,7 @@ function App() {
             email={email}
             setEmail={setEmail}
             buttonText="Войти"/>
+          <InfoTooltip popupOpen={popupErrorOpen} tooltipErrorText={tooltipErrorText} popupClose={popupErrorClose}/>
         </Route>
           <ProtectedRoute
             path="/movies"

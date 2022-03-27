@@ -16,8 +16,8 @@ function MoviesCardList({ films, savedFilms, class_height, onClick, page, onMovi
   return (
     <>
         <ul className={`movies-card-list ${class_height}`}>
-          {films.map((film, index) => (
-            <MovieCard data={film} page={page} onMovieDelete={onMovieDelete} key={index} isSaved={isSaved(film)} getId={getId(film)}/>
+          {films.map((film) => (
+            <MovieCard data={film} page={page} onMovieDelete={onMovieDelete} key={film} isSaved={isSaved(film)} getId={getId(film)}/>
           ))}
         </ul>
         {films.length >= 5 ? <button className="movies-card-list__more-button" onClick={onClick}>Ещё</button> : ''}
