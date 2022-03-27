@@ -4,7 +4,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 import search from '../../images/search.svg'
 
-function SearchForm({onSubmit, onChange, errorName, isSearchValid}) {
+function SearchForm({onSubmit, onChange, errorName, isSearchValid, onClick}) {
 
   return (
     <div className="search-form">
@@ -15,7 +15,7 @@ function SearchForm({onSubmit, onChange, errorName, isSearchValid}) {
           {!isSearchValid ? <span className="search__input-error">{errorName}</span> : ''}
           <button type="submit" className="search-form__button"></button>
         </form>
-        <FilterCheckbox />
+        <FilterCheckbox onClick={onClick}/>
       </div>
     </div>
   )

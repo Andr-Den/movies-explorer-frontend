@@ -22,6 +22,7 @@ function Movies() {
   const [savedFilms, setSavedFilms] = React.useState([]);
   const [errorName, setErrorName] = React.useState();
   const [isSearchValid, setIsSearchValid] = React.useState(false);
+  const [isChecked, setIsChecked] = React.useState(false);
 
   React.useEffect(() => {
     const windowInnerWidth = window.innerWidth
@@ -47,26 +48,39 @@ function Movies() {
     isSetMenuOpen(false)
   }
 
+  function handleCheck() {
+    if (!isChecked) {
+      setIsChecked(true) 
+    } else {
+      setIsChecked(false)
+      console.log(isChecked)
+    } 
+  }
+
   function handleSearch(e) {
     e.preventDefault();  
-    if (searchInput != null)
-    {setPreload(true);
-    setEmptySearch(true)
-    setIsSearchValid(true);
-    moviesApi.getAllMovies()
-    .then((films) => {
-      setFilms(films.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)).slice(0,addMovies))
-      setPreload(false)
-    })
-    .catch((err) => {
-      setPreload(false)
-      setSearchError(true)
-      console.log(err);
-    });
-  } else {
-    setErrorName("Нужно ввести ключевое слово")
-    setIsSearchValid(false);
-  }
+    if (searchInput != null) {
+      setPreload(true);
+      setEmptySearch(true)
+     setIsSearchValid(true);
+      moviesApi.getAllMovies()
+      .then((films) => {
+        if (!isChecked) {
+          setFilms(films.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.description.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)).slice(0,addMovies))
+        } else {
+          setFilms(films.filter(film => (film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.description.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)) && film.duration <=40).slice(0,addMovies))
+        }
+        setPreload(false)
+      })
+      .catch((err) => {
+        setPreload(false)
+        setSearchError(true)
+        console.log(err);
+      });
+    } else {
+      setErrorName("Нужно ввести ключевое слово")
+      setIsSearchValid(false);
+    }
   }
 
   function handleAddMovies(e) {
@@ -79,7 +93,11 @@ function Movies() {
     } 
     moviesApi.getAllMovies()
     .then((films) => {
-      setFilms(films.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)).slice(0,addMovies))
+      if (!isChecked) {
+        setFilms(films.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.description.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)).slice(0,addMovies))
+      } else {
+        setFilms(films.filter(film => (film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.description.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)) && film.duration <=40).slice(0,addMovies))
+      }
     });
   }
 
@@ -100,7 +118,7 @@ function Movies() {
         <button className="header__burger" onClick={handleOpenMenu}/>
         </Header>
         <Navigation isOpen={isMenuOpen} onClose={handleCloseMenu}/>
-        <SearchForm onSubmit={handleSearch} onChange={handleSearchChange} errorName={errorName} isSearchValid={isSearchValid} />
+        <SearchForm onSubmit={handleSearch} onChange={handleSearchChange} errorName={errorName} isSearchValid={isSearchValid} onClick={handleCheck}/>
         {preload ? <Preloader /> : 
         <>
         {searchError ? <p className="movies-card-list__error">Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</p> : 
