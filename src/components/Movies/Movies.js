@@ -18,12 +18,20 @@ function Movies() {
   const [searchError, setSearchError] = React.useState(false);
   const [searchInput, setSearchInput] = React.useState();
   const [emptySearch, setEmptySearch] = React.useState(false);
-  const [addMovies, setAddMovies] = React.useState(15);
+  const [addMovies, setAddMovies] = React.useState();
   const [savedFilms, setSavedFilms] = React.useState([]);
   const [errorName, setErrorName] = React.useState();
   const [isSearchValid, setIsSearchValid] = React.useState(false);
 
   React.useEffect(() => {
+    const windowInnerWidth = window.innerWidth
+    if (windowInnerWidth > 768 ) {
+      setAddMovies(12)
+    } else if (windowInnerWidth <= 768 && windowInnerWidth >= 481) {
+      setAddMovies(10)
+    } else if (windowInnerWidth >= 320) {
+      setAddMovies(5)
+    }
     const token = localStorage.getItem('token');
     MainApi.getSavedFilms(token)
     .then((films) => {
@@ -40,14 +48,14 @@ function Movies() {
   }
 
   function handleSearch(e) {
-    e.preventDefault();
+    e.preventDefault();  
     if (searchInput != null)
     {setPreload(true);
     setEmptySearch(true)
     setIsSearchValid(true);
     moviesApi.getAllMovies()
     .then((films) => {
-      setFilms(films.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)).slice(0,12))
+      setFilms(films.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)).slice(0,addMovies))
       setPreload(false)
     })
     .catch((err) => {
@@ -63,7 +71,12 @@ function Movies() {
 
   function handleAddMovies(e) {
     e.preventDefault();
-    setAddMovies(addMovies+3)
+    const windowInnerWidth = window.innerWidth
+    if (windowInnerWidth > 768 ) {
+      setAddMovies(addMovies+3)
+    } else if (windowInnerWidth <= 768) {
+      setAddMovies(addMovies+2)
+    } 
     moviesApi.getAllMovies()
     .then((films) => {
       setFilms(films.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)).slice(0,addMovies))

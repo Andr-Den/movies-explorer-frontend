@@ -20,7 +20,7 @@ function MoviesCardList({ films, savedFilms, class_height, onClick, page, onMovi
             <MovieCard data={film} page={page} onMovieDelete={onMovieDelete} key={index} isSaved={isSaved(film)} getId={getId(film)}/>
           ))}
         </ul>
-        {films.length >= 12 ? <button className="movies-card-list__more-button" onClick={onClick}>Ещё</button> : ''}
+        {films.length >= 5 ? <button className="movies-card-list__more-button" onClick={onClick}>Ещё</button> : ''}
       </>
 )}
 
