@@ -13,16 +13,16 @@ import '../Header/Header.css'
 
 function Movies() {
   const [isMenuOpen, isSetMenuOpen] = React.useState(false);
-  const [films, setFilms] = React.useState([]);
+  const [films, setFilms] = React.useState(JSON.parse(localStorage.getItem('films')) ?? []);
   const [preload, setPreload] = React.useState(false);
   const [searchError, setSearchError] = React.useState(false);
-  const [searchInput, setSearchInput] = React.useState();
+  const [searchInput, setSearchInput] = React.useState(localStorage.getItem('input') ?? '');
   const [emptySearch, setEmptySearch] = React.useState(false);
   const [addMovies, setAddMovies] = React.useState();
   const [savedFilms, setSavedFilms] = React.useState([]);
   const [errorName, setErrorName] = React.useState();
   const [isSearchValid, setIsSearchValid] = React.useState(false);
-  const [isChecked, setIsChecked] = React.useState(false);
+  const [isChecked, setIsChecked] = React.useState(JSON.parse(localStorage.getItem('checkbox')) ?? false);
 
   React.useEffect(() => {
     const windowInnerWidth = window.innerWidth
@@ -33,7 +33,7 @@ function Movies() {
     } else if (windowInnerWidth >= 320) {
       setAddMovies(5)
     }
-  }, [films])
+  }, [])
 
   function handleOpenMenu() {
     isSetMenuOpen(true) 
@@ -45,10 +45,9 @@ function Movies() {
 
   function handleCheck() {
     if (!isChecked) {
-      setIsChecked(true) 
+      setIsChecked(true)
     } else {
       setIsChecked(false)
-      console.log(isChecked)
     } 
   }
 
@@ -58,6 +57,8 @@ function Movies() {
       setPreload(true);
       setEmptySearch(true)
       setIsSearchValid(true);
+      localStorage.setItem('input', searchInput)
+      localStorage.setItem('checkbox', JSON.stringify(isChecked))
       const token = localStorage.getItem('token');
       MainApi.getSavedFilms(token)
       .then((films) => {
@@ -65,11 +66,16 @@ function Movies() {
       })
       moviesApi.getAllMovies()
       .then((films) => {
-        if (!isChecked) {
-          setFilms(films.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.description.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)).slice(0,addMovies))
-        } else {
-          setFilms(films.filter(film => (film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.description.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)) && film.duration <=40).slice(0,addMovies))
-        }
+        const result =  isChecked ?
+        films.filter(film => (film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || 
+          film.description.toLowerCase().includes(searchInput.toLowerCase()) || 
+          film.year.includes(searchInput)) && film.duration <= 40).slice(0,addMovies) :
+        films.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || 
+          film.description.toLowerCase().includes(searchInput.toLowerCase()) || 
+          film.year.includes(searchInput)).slice(0,addMovies)
+
+        setFilms(result)
+        localStorage.setItem('films', JSON.stringify(result))
         setPreload(false)
       })
       .catch((err) => {
@@ -98,7 +104,7 @@ function Movies() {
       } else {
         setFilms(films.filter(film => (film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.description.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)) && film.duration <=40).slice(0,addMovies))
       }
-    });
+    })
   }
 
   function handleSearchChange(e) {
@@ -125,7 +131,7 @@ function Movies() {
           <>
             {
               films.length === 0 && emptySearch ? <p className="movies-card-list__error">Ничего не найдено</p> : 
-              <MoviesCardList films={films} savedFilms={savedFilms} searchInput={searchInput} class_height='movie-card-list_all' onClick={handleAddMovies} />
+              <MoviesCardList films={films} savedFilms={savedFilms} searchInput={searchInput} class_height='movie-card-list_all' onClick={handleAddMovies} setFilms={setFilms}/>
             }
           </>
         }

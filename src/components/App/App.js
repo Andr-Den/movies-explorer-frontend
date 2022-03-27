@@ -64,6 +64,7 @@ function App() {
   }
 
   React.useEffect(() => {
+    localStorage.getItem('films')
     const token = localStorage.getItem('token');
     if (token && !loggedIn){
       MainApi.getUser(token).then((res) => {
