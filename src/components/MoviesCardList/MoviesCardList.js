@@ -2,7 +2,7 @@ import React from 'react'
 import './MoviesCardList.css'
 import MovieCard from '../MovieCard/MovieCard';
 
-function MoviesCardList({ films, savedFilms, class_height, onClick, page, onMovieDelete, setSavedFilms }) {
+function MoviesCardList({ films, savedFilms, classHeight, onClick, page, onMovieDelete, setSavedFilms }) {
   function getId(film) {
     const movie = savedFilms.find(m => m.movieId === film.id)
     return movie
@@ -10,7 +10,7 @@ function MoviesCardList({ films, savedFilms, class_height, onClick, page, onMovi
 
   return (
     <>
-        <ul className={`movies-card-list ${class_height}`}>
+        <ul className={`movies-card-list ${classHeight}`}>
           {films.map((film, index) => (
             <MovieCard data={film} page={page} key={index} onMovieDelete={onMovieDelete} getId={getId(film)} savedFilms={savedFilms} setSavedFilms={setSavedFilms}/>
           ))}

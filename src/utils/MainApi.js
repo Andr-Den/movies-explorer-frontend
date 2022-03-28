@@ -91,7 +91,7 @@ export const saveMovie = (data, token) => {
       'Authorization' : `Bearer ${token}`
     },
     body: JSON.stringify({
-      country: data.country,
+      country: String(data.country),
       director: data.director,
       duration: data.duration,
       year: data.year,

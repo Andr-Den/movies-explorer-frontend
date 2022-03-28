@@ -60,6 +60,7 @@ function Movies({savedFilms, setSavedFilms}) {
       localStorage.setItem('checkbox', JSON.stringify(isChecked))
       moviesApi.getAllMovies()
       .then((films) => {
+        console.log(films)
         const result =  isChecked ?
         films.filter(film => (film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || 
           film.description.toLowerCase().includes(searchInput.toLowerCase()) || 
@@ -124,7 +125,7 @@ function Movies({savedFilms, setSavedFilms}) {
           <>
             {
               films.length === 0 && emptySearch ? <p className="movies-card-list__error">Ничего не найдено</p> : 
-              <MoviesCardList films={films} setSavedFilms={setSavedFilms} savedFilms={savedFilms} searchInput={searchInput} class_height='movie-card-list_all' onClick={handleAddMovies} setFilms={setFilms}/>
+              <MoviesCardList films={films} setSavedFilms={setSavedFilms} savedFilms={savedFilms} searchInput={searchInput} classHeight='movie-card-list_all' onClick={handleAddMovies} setFilms={setFilms}/>
             }
           </>
         }

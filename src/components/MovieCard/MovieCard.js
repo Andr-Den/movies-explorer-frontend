@@ -18,10 +18,11 @@ function MovieCard({data, page, onMovieDelete, getId, setSavedFilms, savedFilms}
     } else {
       setSaved(false)
       const token = localStorage.getItem('token');
-      MainApi.deleteMovie(getId, token)
-
-      setSavedFilms(savedFilms.filter((film) => film !== data))
-
+      MainApi.deleteMovie(getId, token).then(() => {
+        console.log(data)
+        console.log(savedFilms)
+        setSavedFilms(savedFilms.filter((film) => film.movieId !== data.id))
+      })
     }
   }
 
