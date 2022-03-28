@@ -73,7 +73,6 @@ function Movies() {
         films.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || 
           film.description.toLowerCase().includes(searchInput.toLowerCase()) || 
           film.year.includes(searchInput)).slice(0,addMovies)
-
         setFilms(result)
         localStorage.setItem('films', JSON.stringify(result))
         setPreload(false)

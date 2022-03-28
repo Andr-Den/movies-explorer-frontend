@@ -96,6 +96,9 @@ function App() {
 
   function signOut(){
     localStorage.removeItem('token');
+    localStorage.removeItem('films');
+    localStorage.removeItem('input');
+    localStorage.removeItem('checkbox');
     setLoggedIn(false);
     history.push('/');
   }
@@ -128,6 +131,14 @@ function App() {
     return (
       <CurrentUserContext.Provider value={currentUser}>
         <SavedMovies />
+      </CurrentUserContext.Provider>
+    )
+  }
+
+  const ComponentNotFound = () => {
+    return (
+      <CurrentUserContext.Provider value={currentUser}>
+        <NotFound />
       </CurrentUserContext.Provider>
     )
   }
@@ -174,9 +185,11 @@ function App() {
             loggedIn={loggedIn}
             component={ComponentProfile}
           />
-          <Route path="/not-found">
-            <NotFound />
-          </Route>
+          <ProtectedRoute
+            path="*"
+            loggedIn={loggedIn}
+            component={ComponentNotFound}
+          />
         </Switch>
     </div>
   );
