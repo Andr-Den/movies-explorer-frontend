@@ -21,7 +21,7 @@ function App() {
   const history = useHistory();
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser,  setCurrentUser ] = React.useState({});
-  const [popupErrorOpen, setPopupErrorOpen] = React.useState(false);
+  const [tooltipErrorOpen, setTooltipErrorOpen] = React.useState(false);
   const [tooltipErrorText, setTooltipErrorText] = React.useState(false);
   const [savedFilms, setSavedFilms] = React.useState([])
 
@@ -41,8 +41,10 @@ function App() {
       .catch((error) => {
         if (error === 'Ошибка: 409') {
           setTooltipErrorText('Пользователь с таким email уже существует');
+        } else {
+          setTooltipErrorText(error)
         }
-        setPopupErrorOpen(true)
+        setTooltipErrorOpen(true)
       });
   }
 
@@ -51,16 +53,19 @@ function App() {
     MainApi.authorize(email, password)
     .then((data) => {
       if (data?.token) {
-        history.push('/movies');
         setEmail()
         setPassword()
+        setLoggedIn(true)
+        history.push('/movies');
       }
     })
     .catch((error) => {
       if (error === 'Ошибка: 401') {
         setTooltipErrorText('Неправильные почта или пароль');
+      }  else {
+        setTooltipErrorText(error)
       }
-      setPopupErrorOpen(true)
+      setTooltipErrorOpen(true)
     });
   }
 
@@ -76,11 +81,12 @@ function App() {
       })
       .catch((error) => console.log(error)
       );
+      MainApi.getSavedFilms(token)
+      .then((films) => {
+        setSavedFilms(films.data)
+      })
+      console.log(loggedIn)
     }
-    MainApi.getSavedFilms(token)
-    .then((films) => {
-      setSavedFilms(films.data)
-    })
   }, [history, loggedIn, setSavedFilms])
 
   function handleUpdateUser(info) {
@@ -93,8 +99,10 @@ function App() {
     .catch((error) => {
       if (error === 'Ошибка: 409') {
         setTooltipErrorText('Пользователь с таким email уже существует');
+      } else {
+        setTooltipErrorText(error)
       }
-      setPopupErrorOpen(true)
+      setTooltipErrorOpen(true)
     });
   }
 
@@ -108,7 +116,7 @@ function App() {
   }
 
   function popupErrorClose() {
-    setPopupErrorOpen(false)
+    setTooltipErrorOpen(false)
   }
 
   const ComponentProfile = () => {
@@ -118,7 +126,7 @@ function App() {
           onClick={signOut} 
           onUpdateUser={handleUpdateUser}
         />
-        <InfoTooltip popupOpen={popupErrorOpen} tooltipErrorText={tooltipErrorText} popupClose={popupErrorClose}/>
+        <InfoTooltip tooltipOpen={tooltipErrorOpen} tooltipErrorText={tooltipErrorText} tooltipClose={popupErrorClose}/>
       </CurrentUserContext.Provider>
     )
   }
@@ -162,7 +170,7 @@ function App() {
             setPassword={setPassword}
             email={email}
             setEmail={setEmail} />
-          <InfoTooltip popupOpen={popupErrorOpen} tooltipErrorText={tooltipErrorText} popupClose={popupErrorClose}/>
+          <InfoTooltip tooltipOpen={tooltipErrorOpen} tooltipErrorText={tooltipErrorText} tooltipClose={popupErrorClose}/>
         </Route>
         <Route path="/sign-in">
           <Login 
@@ -172,7 +180,7 @@ function App() {
             email={email}
             setEmail={setEmail}
             buttonText="Войти"/>
-          <InfoTooltip popupOpen={popupErrorOpen} tooltipErrorText={tooltipErrorText} popupClose={popupErrorClose}/>
+          <InfoTooltip tooltipOpen={tooltipErrorOpen} tooltipErrorText={tooltipErrorText} tooltipClose={popupErrorClose}/>
         </Route>
           <ProtectedRoute
             path="/movies"
