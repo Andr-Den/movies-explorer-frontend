@@ -8,9 +8,9 @@ import Navigation from '../Navigation/Navigation'
 import { Link } from 'react-router-dom';
 import * as MainApi from '../../utils/MainApi';
 
-function SavedMovies() {
+function SavedMovies({savedFilms, setSavedFilms}) {
   const [isMenuOpen, isSetMenuOpen] = React.useState(false);
-  const [savedFilms, setSavedFilms] = React.useState([]);
+  // const [savedFilms, setSavedFilms] = React.useState([]);
   const [searchInput, setSearchInput] = React.useState();
   const [errorName, setErrorName] = React.useState();
   const [isSearchValid, setIsSearchValid] = React.useState(false);
@@ -23,13 +23,13 @@ function SavedMovies() {
     isSetMenuOpen(false)
   }
 
-  React.useEffect(() => {
-    const token = localStorage.getItem('token');
-    MainApi.getSavedFilms(token)
-    .then((films) => {
-      setSavedFilms(films.data)
-    })
-  }, [setSavedFilms])
+  // React.useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   MainApi.getSavedFilms(token)
+  //   .then((films) => {
+  //     setSavedFilms(films.data)
+  //   })
+  // }, [setSavedFilms])
 
   function handleSearch(e) {
     e.preventDefault();

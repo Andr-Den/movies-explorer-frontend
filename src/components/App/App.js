@@ -23,6 +23,7 @@ function App() {
   const [currentUser,  setCurrentUser ] = React.useState({});
   const [popupErrorOpen, setPopupErrorOpen] = React.useState(false);
   const [tooltipErrorText, setTooltipErrorText] = React.useState(false);
+  const [savedFilms, setSavedFilms] = React.useState([])
 
   function handleRegisterSubmit(e) {
     e.preventDefault();
@@ -64,7 +65,6 @@ function App() {
   }
 
   React.useEffect(() => {
-    localStorage.getItem('films')
     const token = localStorage.getItem('token');
     if (token && !loggedIn){
       MainApi.getUser(token).then((res) => {
@@ -77,7 +77,11 @@ function App() {
       .catch((error) => console.log(error)
       );
     }
-  })
+    MainApi.getSavedFilms(token)
+    .then((films) => {
+      setSavedFilms(films.data)
+    })
+  }, [history, loggedIn, setSavedFilms])
 
   function handleUpdateUser(info) {
     const token = localStorage.getItem('token');
@@ -122,7 +126,7 @@ function App() {
   const ComponentMovies = () => {
     return (
       <CurrentUserContext.Provider value={currentUser}>
-        <Movies />
+        <Movies savedFilms={savedFilms} setSavedFilms={setSavedFilms} />
       </CurrentUserContext.Provider>
     )
   }
@@ -130,7 +134,7 @@ function App() {
   const ComponentSavedMovies = () => {
     return (
       <CurrentUserContext.Provider value={currentUser}>
-        <SavedMovies />
+        <SavedMovies savedFilms={savedFilms} setSavedFilms={setSavedFilms} />
       </CurrentUserContext.Provider>
     )
   }

@@ -2,28 +2,26 @@ import React from 'react'
 import './MovieCard.css'
 import * as MainApi from '../../utils/MainApi';
 
-function MovieCard({data, page, onMovieDelete, isSaved = false, getId}) {
-  const [save, setSave] = React.useState(isSaved);
-  const cardLikeButtonClassName =  (
-    `${save ? 'movie-card__icon_active' : ''}`
-  );
+function MovieCard({data, page, onMovieDelete, getId, setSavedFilms, savedFilms}) {
+  const [saved, setSaved] = React.useState(savedFilms.map((savedFilm) => savedFilm.movieId).includes(data.id));
+
   function handleDeleteClick() {
     onMovieDelete(data)
   };
 
   function handleMovieSave(data) {
-    if (!save) {
+    if (!saved) {
       const token = localStorage.getItem('token');
-      MainApi.saveMovie(data, token)
-      .then((data) =>{
-      })
-      setSave(true)
+      MainApi.saveMovie(data, token).then((data) =>  setSavedFilms([...savedFilms, data.data]))
+     
+      setSaved(true)
     } else {
-      setSave(false)
+      setSaved(false)
       const token = localStorage.getItem('token');
       MainApi.deleteMovie(getId, token)
-      .then(() => {
-      })
+
+      setSavedFilms(savedFilms.filter((film) => film !== data))
+
     }
   }
 
@@ -35,7 +33,7 @@ function MovieCard({data, page, onMovieDelete, isSaved = false, getId}) {
           <span className="movie-card__duration">{`${data.duration} мин.`}</span>
         </div>
         {page ? <button className={`movie-card__icon movie-card__icon_delete`} onClick={handleDeleteClick}/> :
-          <button className={`movie-card__icon ${cardLikeButtonClassName}`} onClick={() => handleMovieSave(data)}/>
+          <button className={`movie-card__icon ${saved ? 'movie-card__icon_active' : ''}`} onClick={() => handleMovieSave(data)}/>
         }
       </div>
       <a href={data.trailerLink} target="_blank" rel="noreferrer"><img src={`https://api.nomoreparties.co/${data.image.url ?? data.image}`} alt="кадр" className="movie-card__film-image"/></a>

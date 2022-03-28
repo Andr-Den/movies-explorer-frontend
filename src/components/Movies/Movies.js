@@ -11,7 +11,7 @@ import * as MainApi from '../../utils/MainApi'
 import Preloader from '../Preloader/Preloader'
 import '../Header/Header.css'
 
-function Movies() {
+function Movies({savedFilms, setSavedFilms}) {
   const [isMenuOpen, isSetMenuOpen] = React.useState(false);
   const [films, setFilms] = React.useState(JSON.parse(localStorage.getItem('films')) ?? []);
   const [preload, setPreload] = React.useState(false);
@@ -19,7 +19,6 @@ function Movies() {
   const [searchInput, setSearchInput] = React.useState(localStorage.getItem('input') ?? '');
   const [emptySearch, setEmptySearch] = React.useState(false);
   const [addMovies, setAddMovies] = React.useState();
-  const [savedFilms, setSavedFilms] = React.useState([]);
   const [errorName, setErrorName] = React.useState();
   const [isSearchValid, setIsSearchValid] = React.useState(false);
   const [isChecked, setIsChecked] = React.useState(JSON.parse(localStorage.getItem('checkbox')) ?? false);
@@ -59,11 +58,6 @@ function Movies() {
       setIsSearchValid(true);
       localStorage.setItem('input', searchInput)
       localStorage.setItem('checkbox', JSON.stringify(isChecked))
-      const token = localStorage.getItem('token');
-      MainApi.getSavedFilms(token)
-      .then((films) => {
-        setSavedFilms(films.data)
-      })
       moviesApi.getAllMovies()
       .then((films) => {
         const result =  isChecked ?
@@ -130,7 +124,7 @@ function Movies() {
           <>
             {
               films.length === 0 && emptySearch ? <p className="movies-card-list__error">Ничего не найдено</p> : 
-              <MoviesCardList films={films} savedFilms={savedFilms} searchInput={searchInput} class_height='movie-card-list_all' onClick={handleAddMovies} setFilms={setFilms}/>
+              <MoviesCardList films={films} setSavedFilms={setSavedFilms} savedFilms={savedFilms} searchInput={searchInput} class_height='movie-card-list_all' onClick={handleAddMovies} setFilms={setFilms}/>
             }
           </>
         }
