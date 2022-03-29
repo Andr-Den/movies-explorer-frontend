@@ -16,7 +16,7 @@ function Profile({ onClick, onUpdateUser }) {
   const [isEmailValid, setIsEmailValid] = React.useState(false);
   const [isNameValid, setIsNameValid] = React.useState(false);
   const NoActiveButton = (
-    `${(isNameValid && isEmailValid) ? '' : 'sign__button_no-active'}`
+    `${((isNameValid || isEmailValid) & (currentUser.name !== name || currentUser.email !== email)) ? '' : 'profile__button_no-active'}`
   );
 
   function handleOpenMenu() {
@@ -67,7 +67,7 @@ function Profile({ onClick, onUpdateUser }) {
         <Navigation isOpen={isMenuOpen} onClose={handleCloseMenu}/>
         <form onSubmit={handleSubmit}>
         <fieldset className="profile__container" onSubmit={handleSubmit}>
-          <h2 className="profile__title">Привет, {name}!</h2>
+          <h2 className="profile__title">Привет, {currentUser.name}!</h2>
           <div className="profile__info">
             <span>Имя</span>
             <input type="text" value={name} onChange={handleNameChange} className="profile__input" minLength="2" maxLength="30" required/>
@@ -76,10 +76,10 @@ function Profile({ onClick, onUpdateUser }) {
           <div className="profile__line"/>
           <div className="profile__info">
             <span>E-mail</span>
-            <input type="email" value={email} onChange={handleEmailChange} className="profile__input"/>
+            <input type="email" value={email} onChange={handleEmailChange} className="profile__input" pattern="^.+@.+\..+$"/>
           </div>
           {!isEmailValid ? <span className="sign__input-error sign__input-error_active">{errorEmail}</span> : ''}
-          <input type="submit" value="Редактировать" className={`profile__button ${NoActiveButton}`} />
+          <input type="submit" value="Редактировать" name="button" className={`profile__button ${NoActiveButton}`}  disabled={!((isNameValid || isEmailValid) & (currentUser.name !== name || currentUser.email !== email))}/>
           <button className="profile__button profile__button_exit" onClick={onClick}>Выйти из аккаунта</button>
         </fieldset>
         </form>
