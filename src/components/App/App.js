@@ -19,7 +19,7 @@ function App() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const history = useHistory();
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(!!localStorage.getItem('token'));
   const [currentUser,  setCurrentUser ] = React.useState({});
   const [tooltipErrorOpen, setTooltipErrorOpen] = React.useState(false);
   const [tooltipDoneOpen, setTooltipDoneOpen] = React.useState(false);
@@ -72,12 +72,11 @@ function App() {
 
   React.useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token && !loggedIn){
+    if (token ){
       MainApi.getUser(token).then((res) => {
         if (res) {
           setCurrentUser(res.data)
           setLoggedIn(true)
-          history.push('/movies');
         }
       })
       .catch((error) => console.log(error)
