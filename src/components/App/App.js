@@ -22,6 +22,7 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser,  setCurrentUser ] = React.useState({});
   const [tooltipErrorOpen, setTooltipErrorOpen] = React.useState(false);
+  const [tooltipDoneOpen, setTooltipDoneOpen] = React.useState(false);
   const [tooltipErrorText, setTooltipErrorText] = React.useState(false);
   const [savedFilms, setSavedFilms] = React.useState([])
 
@@ -85,7 +86,6 @@ function App() {
       .then((films) => {
         setSavedFilms(films.data)
       })
-      console.log(loggedIn)
     }
   }, [history, loggedIn, setSavedFilms])
 
@@ -94,6 +94,7 @@ function App() {
     MainApi.editUser(info.name, info.email, token)
     .then((result) => {
       setCurrentUser(result.data)
+      setTooltipDoneOpen(true)
     }
     )
     .catch((error) => {
@@ -117,6 +118,7 @@ function App() {
 
   function popupErrorClose() {
     setTooltipErrorOpen(false)
+    setTooltipDoneOpen(false)
   }
 
   const ComponentProfile = () => {
@@ -127,6 +129,7 @@ function App() {
           onUpdateUser={handleUpdateUser}
         />
         <InfoTooltip tooltipOpen={tooltipErrorOpen} tooltipErrorText={tooltipErrorText} tooltipClose={popupErrorClose}/>
+        <InfoTooltip tooltipOpen={tooltipDoneOpen} tooltipErrorText="Данные успешно изменены" tooltipClose={popupErrorClose}/>
       </CurrentUserContext.Provider>
     )
   }
