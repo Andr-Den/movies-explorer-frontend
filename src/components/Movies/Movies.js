@@ -7,7 +7,6 @@ import AccountButton from '../AccountButton/AccountButton';
 import Navigation from '../Navigation/Navigation'
 import { Link } from 'react-router-dom';
 import { moviesApi } from '../../utils/MoviesApi';
-import * as MainApi from '../../utils/MainApi'
 import Preloader from '../Preloader/Preloader'
 import '../Header/Header.css'
 
@@ -60,7 +59,6 @@ function Movies({savedFilms, setSavedFilms}) {
       localStorage.setItem('checkbox', JSON.stringify(isChecked))
       moviesApi.getAllMovies()
       .then((films) => {
-        console.log(films)
         const result =  isChecked ?
         films.filter(film => (film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || 
           film.description.toLowerCase().includes(searchInput.toLowerCase()) || 
