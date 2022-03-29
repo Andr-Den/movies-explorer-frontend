@@ -10,7 +10,6 @@ import * as MainApi from '../../utils/MainApi';
 
 function SavedMovies({savedFilms, setSavedFilms}) {
   const [isMenuOpen, isSetMenuOpen] = React.useState(false);
-  // const [savedFilms, setSavedFilms] = React.useState([]);
   const [searchInput, setSearchInput] = React.useState();
   const [errorName, setErrorName] = React.useState();
   const [isSearchValid, setIsSearchValid] = React.useState(false);
@@ -23,13 +22,6 @@ function SavedMovies({savedFilms, setSavedFilms}) {
     isSetMenuOpen(false)
   }
 
-  // React.useEffect(() => {
-  //   const token = localStorage.getItem('token');
-  //   MainApi.getSavedFilms(token)
-  //   .then((films) => {
-  //     setSavedFilms(films.data)
-  //   })
-  // }, [setSavedFilms])
 
   function handleSearch(e) {
     e.preventDefault();
@@ -71,7 +63,10 @@ function SavedMovies({savedFilms, setSavedFilms}) {
         </Header>
         <Navigation isOpen={isMenuOpen} onClose={handleCloseMenu} pageSavedMovies="navigation__link_active"/>
         <SearchForm onSubmit={handleSearch} onChange={handleSearchChange} errorName={errorName} isSearchValid={isSearchValid}/>
-        <MoviesCardList savedFilms={savedFilms} films={savedFilms} page={true} onMovieDelete={handleMovieDelete} setSavedFilms={setSavedFilms}/>
+            {
+              savedFilms.length === 0 & !isSearchValid ? <p className="movies-card-list__error">Ничего не найдено</p> : 
+              <MoviesCardList savedFilms={savedFilms} films={savedFilms} page={true} onMovieDelete={handleMovieDelete} setSavedFilms={setSavedFilms}/>
+            }
         <Footer />
       </div>
   )
