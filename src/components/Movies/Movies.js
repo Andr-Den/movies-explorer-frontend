@@ -17,21 +17,11 @@ function Movies({savedFilms, setSavedFilms}) {
   const [searchError, setSearchError] = React.useState(false);
   const [searchInput, setSearchInput] = React.useState(localStorage.getItem('input') ?? '');
   const [emptySearch, setEmptySearch] = React.useState(false);
-  const [addMovies, setAddMovies] = React.useState();
   const [errorName, setErrorName] = React.useState();
   const [isSearchValid, setIsSearchValid] = React.useState(false);
   const [isChecked, setIsChecked] = React.useState(JSON.parse(localStorage.getItem('checkbox')) ?? false);
 
-  React.useEffect(() => {
-    const windowInnerWidth = window.innerWidth
-    if (windowInnerWidth > 768 ) {
-      setAddMovies(12)
-    } else if (windowInnerWidth <= 768 && windowInnerWidth >= 481) {
-      setAddMovies(10)
-    } else if (windowInnerWidth >= 320) {
-      setAddMovies(5)
-    }
-  }, [])
+
 
   function handleOpenMenu() {
     isSetMenuOpen(true) 
@@ -62,10 +52,10 @@ function Movies({savedFilms, setSavedFilms}) {
         const result =  isChecked ?
         films.filter(film => (film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || 
           film.description.toLowerCase().includes(searchInput.toLowerCase()) || 
-          film.year.includes(searchInput)) && film.duration <= 40).slice(0,addMovies) :
+          film.year.includes(searchInput)) && film.duration <= 40) :
         films.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || 
           film.description.toLowerCase().includes(searchInput.toLowerCase()) || 
-          film.year.includes(searchInput)).slice(0,addMovies)
+          film.year.includes(searchInput))
         setFilms(result)
         localStorage.setItem('films', JSON.stringify(result))
         setPreload(false)
@@ -79,24 +69,6 @@ function Movies({savedFilms, setSavedFilms}) {
       setErrorName("Нужно ввести ключевое слово")
       setIsSearchValid(false);
     }
-  }
-
-  function handleAddMovies(e) {
-    e.preventDefault();
-    const windowInnerWidth = window.innerWidth
-    if (windowInnerWidth > 768 ) {
-      setAddMovies(addMovies+3)
-    } else if (windowInnerWidth <= 768) {
-      setAddMovies(addMovies+2)
-    } 
-    moviesApi.getAllMovies()
-    .then((films) => {
-      if (!isChecked) {
-        setFilms(films.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.description.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)).slice(0,addMovies))
-      } else {
-        setFilms(films.filter(film => (film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.description.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)) && film.duration <=40).slice(0,addMovies))
-      }
-    })
   }
 
   function handleSearchChange(e) {
@@ -123,7 +95,7 @@ function Movies({savedFilms, setSavedFilms}) {
           <>
             {
               films.length === 0 && emptySearch ? <p className="movies-card-list__error">Ничего не найдено</p> : 
-              <MoviesCardList films={films} setSavedFilms={setSavedFilms} savedFilms={savedFilms} searchInput={searchInput} classHeight='movie-card-list_all' onClick={handleAddMovies} setFilms={setFilms}/>
+              <MoviesCardList films={films} setSavedFilms={setSavedFilms} savedFilms={savedFilms} classHeight='movie-card-list_all' setFilms={setFilms}/>
             }
           </>
         }

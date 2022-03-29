@@ -13,6 +13,7 @@ function SavedMovies({savedFilms, setSavedFilms}) {
   const [searchInput, setSearchInput] = React.useState();
   const [errorName, setErrorName] = React.useState();
   const [isSearchValid, setIsSearchValid] = React.useState(false);
+  const [isChecked, setIsChecked] = React.useState();
 
   function handleOpenMenu() {
     isSetMenuOpen(true) 
@@ -22,13 +23,32 @@ function SavedMovies({savedFilms, setSavedFilms}) {
     isSetMenuOpen(false)
   }
 
+  function handleCheck() {
+    if (!isChecked) {
+      setIsChecked(true)
+    } else {
+      setIsChecked(false)
+    } 
+  }
+
 
   function handleSearch(e) {
     e.preventDefault();
     if (searchInput != null)
       {
         setIsSearchValid(true);
-        setSavedFilms(savedFilms.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || film.year.includes(searchInput)).slice(0,12))
+        const token = localStorage.getItem('token');
+        MainApi.getSavedFilms(token)
+        .then((films) => {
+          const result =  isChecked ?
+          films.data.filter(film => (film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || 
+            film.description.toLowerCase().includes(searchInput.toLowerCase()) || 
+            film.year.includes(searchInput)) && film.duration <= 40) :
+          films.data.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || 
+            film.description.toLowerCase().includes(searchInput.toLowerCase()) || 
+            film.year.includes(searchInput))
+            setSavedFilms(result)
+        })
       } else {
         setErrorName("Нужно ввести ключевое слово")
         setIsSearchValid(false);
@@ -62,9 +82,9 @@ function SavedMovies({savedFilms, setSavedFilms}) {
         <button className="header__burger" onClick={handleOpenMenu}/>
         </Header>
         <Navigation isOpen={isMenuOpen} onClose={handleCloseMenu} pageSavedMovies="navigation__link_active"/>
-        <SearchForm onSubmit={handleSearch} onChange={handleSearchChange} errorName={errorName} isSearchValid={isSearchValid}/>
+        <SearchForm onSubmit={handleSearch} onChange={handleSearchChange} errorName={errorName} isSearchValid={isSearchValid} onClick={handleCheck} page={true}/>
             {
-              savedFilms.length === 0 & !isSearchValid ? <p className="movies-card-list__error">Ничего не найдено</p> : 
+              savedFilms.length === 0 ? <p className="movies-card-list__error">Ничего не найдено</p> : 
               <MoviesCardList savedFilms={savedFilms} films={savedFilms} page={true} onMovieDelete={handleMovieDelete} setSavedFilms={setSavedFilms}/>
             }
         <Footer />
