@@ -43,10 +43,10 @@ function Register({handleSubmit, name, setName, password, setPassword, email, se
             <input type="text" className="sign__input" value={name || ''} onChange={handleNameChange} minLength="2" maxLength="30" required/>
             {!isNameValid ? <span className="sign__input-error sign__input-error_active">{errorName}</span> : ''}
             <span className="sign__description">E-mail</span>
-            <input type="email" className="sign__input" value={email || ''} onChange={handleEmailChange} required/>
+            <input type="email" className="sign__input" value={email || ''} onChange={handleEmailChange} required pattern="^.+@.+\..+$"/>
             {!isEmailValid ? <span className="sign__input-error sign__input-error_active">{errorEmail}</span> : ''}
             <span className="sign__description">Пароль</span>
-            <input type="password" className="sign__input" value={password || ''} onChange={handlePasswordChange} required/>
+            <input type="password" className="sign__input" value={password || ''} onChange={handlePasswordChange} required minLength="6"/>
             {!isPasswordValid ? <span className="sign__input-error sign__input-error_active">{errorPassword}</span> : ''}
             <input type="submit" value="Зарегистрироваться" name="submit_button" className={`sign__button ${NoActiveButton}`} />
             <span className="sign__bottom">Уже зарегистрированы? <a href="/sign-in" className="sign__link">Войти</a></span>
