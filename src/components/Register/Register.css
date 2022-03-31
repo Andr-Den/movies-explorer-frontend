@@ -61,15 +61,10 @@
 }
 
 .sign__input-error {
-  display: none;
   font-weight: normal;
   font-size: 10px;
   line-height: 12px;
   color: #FF0000;
-}
-
-.sign__input-error_active {
-  display: block;
 }
 
 .sign__button {
@@ -85,8 +80,21 @@
   border: none;
 }
 
+.sign__button:hover {
+  cursor: pointer;
+}
+
 .sign__button_login {
   margin: 140px 0 0;
+}
+
+.sign__button_no-active {
+  opacity: .2;
+}
+
+.sign__button_no-active:hover {
+cursor: default;
+opacity: .2;
 }
 
 .sign__bottom {

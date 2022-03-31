@@ -62,6 +62,14 @@
   cursor: pointer;
 }
 
+.profile__button_no-active {
+  opacity: .2;
+}
+
+.profile__button_no-active:hover {
+  cursor: default;
+}
+
 .profile__button_exit {
   margin-top: 16px;
   color: #EE3465;

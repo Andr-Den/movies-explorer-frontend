@@ -24,7 +24,7 @@ function Footer() {
         <span className="footer__copyright">&copy; 2022</span>
         <ul className="footer__links">
           {links.map(({url, text}) => (
-            <li><a href={url} className="footer__link" target="_blank" rel="noreferrer">{text}</a></li>
+            <li key={text}><a href={url} className="footer__link" target="_blank" rel="noreferrer">{text}</a></li>
           ))}
         </ul>
     </div>

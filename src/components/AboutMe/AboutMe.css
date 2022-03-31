@@ -69,6 +69,7 @@
   height: 327px;
   border-radius: 10px;
   float: right;
+  object-fit: cover;
 }
 
 @media screen and (max-width: 995px){

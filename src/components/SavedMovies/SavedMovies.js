@@ -6,29 +6,14 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import AccountButton from '../AccountButton/AccountButton';
 import Navigation from '../Navigation/Navigation'
 import { Link } from 'react-router-dom';
+import * as MainApi from '../../utils/MainApi';
 
-import film_01 from '../../images/film-01.jpg'
-import film_02 from '../../images/film-02.jpg'
-import film_03 from '../../images/film-03.jpg'
-
-const films = [
-  {
-    image: film_01,
-    save:  'movie-card__icon_close'
-  },
-  {
-    image: film_02,
-    save: 'movie-card__icon_close'
-  },
-  {
-    image: film_03,
-    save: 'movie-card__icon_close'
-  }
-]
-
-function SavedMovies() {
-
+function SavedMovies({savedFilms, setSavedFilms}) {
   const [isMenuOpen, isSetMenuOpen] = React.useState(false);
+  const [searchInput, setSearchInput] = React.useState();
+  const [errorName, setErrorName] = React.useState();
+  const [isSearchValid, setIsSearchValid] = React.useState(false);
+  const [isChecked, setIsChecked] = React.useState();
 
   function handleOpenMenu() {
     isSetMenuOpen(true) 
@@ -37,6 +22,53 @@ function SavedMovies() {
   function handleCloseMenu() {
     isSetMenuOpen(false)
   }
+
+  function handleCheck() {
+    if (!isChecked) {
+      setIsChecked(true)
+    } else {
+      setIsChecked(false)
+    } 
+  }
+
+
+  function handleSearch(e) {
+    e.preventDefault();
+    if (searchInput != null)
+      {
+        setIsSearchValid(true);
+        const token = localStorage.getItem('token');
+        MainApi.getSavedFilms(token)
+        .then((films) => {
+          const result =  isChecked ?
+          films.data.filter(film => (film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || 
+            film.description.toLowerCase().includes(searchInput.toLowerCase()) || 
+            film.year.includes(searchInput)) && film.duration <= 40) :
+          films.data.filter(film => film.nameRU.toLowerCase().includes(searchInput.toLowerCase()) || 
+            film.description.toLowerCase().includes(searchInput.toLowerCase()) || 
+            film.year.includes(searchInput))
+            setSavedFilms(result)
+        })
+      } else {
+        setErrorName("Нужно ввести ключевое слово")
+        setIsSearchValid(false);
+      }
+  }
+  function handleSearchChange(e) {
+    setSearchInput(e.target.value);
+  }
+
+  function handleMovieDelete(data) {
+    const token = localStorage.getItem('token');
+    MainApi.deleteMovie(data, token)
+    .then(() => {
+      MainApi.getSavedFilms(token)
+      .then((films) => {
+        setSavedFilms(films.data)
+      })
+    })
+  }
+
   return (
       <div className="page">
         <Header>
@@ -49,9 +81,12 @@ function SavedMovies() {
         </div>
         <button className="header__burger" onClick={handleOpenMenu}/>
         </Header>
-        <Navigation isOpen={isMenuOpen} onClose={handleCloseMenu}/>
-        <SearchForm />
-        <MoviesCardList films={films}/>
+        <Navigation isOpen={isMenuOpen} onClose={handleCloseMenu} pageSavedMovies="navigation__link_active"/>
+        <SearchForm onSubmit={handleSearch} onChange={handleSearchChange} errorName={errorName} isSearchValid={isSearchValid} onClick={handleCheck} page={true}/>
+            {
+              savedFilms.length === 0 ? <p className="movies-card-list__error">Ничего не найдено</p> : 
+              <MoviesCardList savedFilms={savedFilms} films={savedFilms} page={true} onMovieDelete={handleMovieDelete} setSavedFilms={setSavedFilms}/>
+            }
         <Footer />
       </div>
   )
